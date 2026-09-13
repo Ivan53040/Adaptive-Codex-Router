@@ -1,0 +1,98 @@
+{
+  "dataset_sha256": "d61f4a00fc4a76e6d5355c01cb3d33a3379d7de6eeecc8e059dfdf1c88c354cb",
+  "generated_at": "2026-09-11T03:01:18.221044+00:00",
+  "mode": "real",
+  "results": {
+    "scenarios": {
+      "qwen_adaptive": {
+        "tasks": 1,
+        "successes": 0,
+        "success_rate": 0.0,
+        "first_attempt_success_rate": 0.0,
+        "escalation_rate": 0.0,
+        "average_attempts": 1.0,
+        "average_latency_ms": 3620.0,
+        "average_planning_latency_ms": 0.0,
+        "planner_fallback_rate": 1.0,
+        "planner_failure_rate": 1.0,
+        "planner_status_distribution": {
+          "online": 1
+        },
+        "planner_used_distribution": {
+          "none": 1
+        },
+        "model_distribution": {
+          "luna": 1
+        },
+        "usage": {
+          "metric": "codex_reported_tokens",
+          "total": null,
+          "average": null,
+          "per_success": null,
+          "missing_rows": 1,
+          "local_planning_input_tokens": null,
+          "local_planning_output_tokens": null
+        },
+        "efficiency": null
+      }
+    },
+    "categories": {
+      "debugging": {
+        "qwen_adaptive": {
+          "tasks": 1,
+          "successes": 0,
+          "success_rate": 0.0,
+          "first_attempt_success_rate": 0.0,
+          "escalation_rate": 0.0,
+          "average_attempts": 1.0,
+          "average_latency_ms": 3620.0,
+          "average_planning_latency_ms": 0.0,
+          "planner_fallback_rate": 1.0,
+          "planner_failure_rate": 1.0,
+          "planner_status_distribution": {
+            "online": 1
+          },
+          "planner_used_distribution": {
+            "none": 1
+          },
+          "model_distribution": {
+            "luna": 1
+          },
+          "usage": {
+            "metric": "codex_reported_tokens",
+            "total": null,
+            "average": null,
+            "per_success": null,
+            "missing_rows": 1,
+            "local_planning_input_tokens": null,
+            "local_planning_output_tokens": null
+          },
+          "efficiency": null
+        }
+      }
+    },
+    "comparisons": {},
+    "category_comparisons": {
+      "debugging": {}
+    },
+    "missing_required_categories": [
+      "simple_coding",
+      "normal_implementation",
+      "large_refactor",
+      "architecture",
+      "repository_analysis",
+      "long_agentic",
+      "large_context"
+    ],
+    "claim_blockers": [
+      "only 1 unique tasks; at least 100 required",
+      "required task categories are missing",
+      "scenario has missing usage data: qwen_adaptive",
+      "required scenario is missing: luna_adaptive",
+      "required scenario is missing: none_adaptive",
+      "required scenario is missing: none_sol",
+      "required scenario is missing: none_astra"
+    ],
+    "claims_ready": false
+  }
+}

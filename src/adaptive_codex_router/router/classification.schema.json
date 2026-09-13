@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_type",
+    "scope",
+    "reasoning_complexity",
+    "agentic_complexity",
+    "ambiguity",
+    "risk",
+    "verification_difficulty",
+    "context_requirement",
+    "expected_task_length",
+    "confidence",
+    "number_of_expected_steps",
+    "cross_module_dependency"
+  ],
+  "properties": {
+    "task_type": {
+      "type": "string",
+      "enum": [
+        "simple_edit",
+        "documentation",
+        "test_generation",
+        "implementation",
+        "refactor",
+        "debugging",
+        "architecture",
+        "repository_analysis",
+        "migration",
+        "performance",
+        "security",
+        "unknown"
+      ]
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["single_line", "single_file", "multi_file", "repository", "multi_repository", "unknown"]
+    },
+    "reasoning_complexity": {"type": "string", "enum": ["low", "medium", "high", "very_high"]},
+    "agentic_complexity": {"type": "string", "enum": ["low", "medium", "high", "very_high"]},
+    "ambiguity": {"type": "string", "enum": ["low", "medium", "high", "very_high"]},
+    "risk": {"type": "string", "enum": ["low", "medium", "high", "very_high"]},
+    "verification_difficulty": {"type": "string", "enum": ["low", "medium", "high", "very_high"]},
+    "context_requirement": {"type": "string", "enum": ["small", "medium", "large", "very_large"]},
+    "expected_task_length": {"type": "string", "enum": ["short", "medium", "long", "very_long"]},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "number_of_expected_steps": {"type": "integer", "minimum": 1, "maximum": 50},
+    "cross_module_dependency": {"type": "boolean"}
+  }
+}

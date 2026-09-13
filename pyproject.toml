@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adaptive-codex-router"
+version = "0.5.3"
+description = "A usage-aware Codex model router with pluggable planning providers"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+phase5-swebench = ["swebench==5.0.2"]
+
+[project.scripts]
+smart-codex = "adaptive_codex_router.cli:main"
+smart-codex-eval = "adaptive_codex_router.benchmark.evaluator:main"
+smart-codex-benchmark = "adaptive_codex_router.benchmark.runner:main"
+smart-codex-phase5 = "adaptive_codex_router.benchmark.phase5:main"
+smart-codex-corpus = "adaptive_codex_router.benchmark.corpus:main"
+smart-codex-category-review = "adaptive_codex_router.benchmark.category_review:main"
+smart-codex-category-finalize = "adaptive_codex_router.benchmark.category_finalize:main"
+smart-codex-dashboard = "adaptive_codex_router.dashboard:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"adaptive_codex_router.router" = ["*.json"]
+"adaptive_codex_router.planning" = ["*.json"]

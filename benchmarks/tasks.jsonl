@@ -1,0 +1,5 @@
+{"name":"simple","prompt":"Fix a typo in README.md","expected_model":"luna"}
+{"name":"normal","prompt":"Implement pagination for the user list","expected_model":"terra"}
+{"name":"difficult","prompt":"Debug a complex race condition across multiple modules","expected_model":"sol"}
+{"name":"large","prompt":"Migrate the entire repository architecture; this is a very difficult multi-system task","expected_model":"astra"}
+

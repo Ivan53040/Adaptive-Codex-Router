@@ -1,0 +1,761 @@
+{
+  "source_manifest_sha256": "e18ef1f67cb941377e12d614e6a857ae2f2c2f639550a6611503af31fbcdc0af",
+  "proposal_sha256": "9ad58ab3a6967e2e21757d87529223b70b3333b84cae4e68a0ddab4fe015577b",
+  "decision_sha256": "38735ee25e429f063f685235d8d1c033ea1b478a2bfa8ae90b81be475d3fabe6",
+  "reviewed_at": "2026-09-10T13:58:40.7437562Z",
+  "reviewed_by": "codex-gpt-5.6-sol-high",
+  "review_authority": "user_delegated",
+  "reviewed_tasks": 100,
+  "confirmed": 95,
+  "modified": 5,
+  "human_review_required": false,
+  "category_distribution": {
+    "simple_coding": 18,
+    "normal_implementation": 15,
+    "debugging": 65,
+    "large_refactor": 0,
+    "architecture": 1,
+    "repository_analysis": 0,
+    "long_agentic": 1,
+    "large_context": 0
+  },
+  "missing_categories": [
+    "large_refactor",
+    "repository_analysis",
+    "large_context"
+  ],
+  "changes": [
+    {
+      "task_id": "matplotlib__matplotlib-24026",
+      "from": "normal_implementation",
+      "to": "debugging",
+      "reason": "stackplot raises an error for color aliases supported by adjacent plotting APIs; correcting existing inconsistent behavior is debugging."
+    },
+    {
+      "task_id": "psf__requests-1142",
+      "from": "normal_implementation",
+      "to": "debugging",
+      "reason": "GET preparation emits an unwanted Content-Length header and breaks a real endpoint; the task corrects existing request behavior."
+    },
+    {
+      "task_id": "pytest-dev__pytest-5787",
+      "from": "normal_implementation",
+      "to": "debugging",
+      "reason": "xdist loses chained exceptions that normal pytest renders correctly, so the dominant work is restoring broken behavior."
+    },
+    {
+      "task_id": "astropy__astropy-8707",
+      "from": "normal_implementation",
+      "to": "debugging",
+      "reason": "Header.fromstring's documented byte-string behavior broke across Python 2/3 types and is inconsistent with Header.fromfile."
+    },
+    {
+      "task_id": "django__django-16454",
+      "from": "normal_implementation",
+      "to": "debugging",
+      "reason": "CommandParser subparsers drop established error-formatting state and produce a traceback instead of the normal usage error."
+    }
+  ],
+  "reviews": [
+    {
+      "task_id": "astropy__astropy-14369",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "astropy__astropy-13453",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "astropy__astropy-7336",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "django__django-15957",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "django__django-13809",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "django__django-16100",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "matplotlib__matplotlib-24026",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "debugging",
+      "status": "modified",
+      "reason": "stackplot raises an error for color aliases supported by adjacent plotting APIs; correcting existing inconsistent behavior is debugging."
+    },
+    {
+      "task_id": "matplotlib__matplotlib-24570",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "mwaskom__seaborn-3187",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pallets__flask-5014",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "psf__requests-2931",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "psf__requests-1142",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "debugging",
+      "status": "modified",
+      "reason": "GET preparation emits an unwanted Content-Length header and breaks a real endpoint; the task corrects existing request behavior."
+    },
+    {
+      "task_id": "pydata__xarray-3993",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pydata__xarray-3677",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pydata__xarray-4356",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pydata__xarray-6992",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pylint-dev__pylint-4551",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pylint-dev__pylint-7080",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pylint-dev__pylint-4970",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pytest-dev__pytest-10356",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pytest-dev__pytest-5631",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pytest-dev__pytest-7982",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25102",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25747",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-13779",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8548",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8056",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-9230",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-7590",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sympy__sympy-12489",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sympy__sympy-13798",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sympy__sympy-14711",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sympy__sympy-13878",
+      "suggested_category": "long_agentic",
+      "reviewed_category": "long_agentic",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "astropy__astropy-13579",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "astropy__astropy-8707",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "debugging",
+      "status": "modified",
+      "reason": "Header.fromstring's documented byte-string behavior broke across Python 2/3 types and is inconsistent with Header.fromfile."
+    },
+    {
+      "task_id": "astropy__astropy-14309",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "django__django-11885",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "django__django-11740",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "django__django-11880",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "matplotlib__matplotlib-14623",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "matplotlib__matplotlib-25332",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "mwaskom__seaborn-3069",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "psf__requests-6028",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "psf__requests-1921",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pydata__xarray-3095",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pydata__xarray-4629",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pylint-dev__pylint-8898",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pylint-dev__pylint-6386",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pylint-dev__pylint-6903",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pytest-dev__pytest-5787",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "debugging",
+      "status": "modified",
+      "reason": "xdist loses chained exceptions that normal pytest renders correctly, so the dominant work is restoring broken behavior."
+    },
+    {
+      "task_id": "pytest-dev__pytest-10051",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pytest-dev__pytest-7432",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-11578",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-13135",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-9461",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-9673",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-9711",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sympy__sympy-17630",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sympy__sympy-17318",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sympy__sympy-15875",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "astropy__astropy-13398",
+      "suggested_category": "architecture",
+      "reviewed_category": "architecture",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "astropy__astropy-7671",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "astropy__astropy-14995",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "django__django-13344",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "django__django-15731",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "django__django-15315",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "matplotlib__matplotlib-22871",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "matplotlib__matplotlib-20676",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "psf__requests-1766",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pydata__xarray-6721",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pydata__xarray-6461",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pylint-dev__pylint-4661",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pylint-dev__pylint-7277",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pytest-dev__pytest-6197",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pytest-dev__pytest-7490",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pytest-dev__pytest-5809",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-10297",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-14496",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-11510",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-11445",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8595",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sympy__sympy-13852",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sympy__sympy-18211",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sympy__sympy-12096",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "astropy__astropy-7606",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "astropy__astropy-7166",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "django__django-15128",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "django__django-16454",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "debugging",
+      "status": "modified",
+      "reason": "CommandParser subparsers drop established error-formatting state and produce a traceback instead of the normal usage error."
+    },
+    {
+      "task_id": "django__django-14787",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "matplotlib__matplotlib-22865",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "matplotlib__matplotlib-25122",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "psf__requests-5414",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pydata__xarray-4687",
+      "suggested_category": "normal_implementation",
+      "reviewed_category": "normal_implementation",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pydata__xarray-4075",
+      "suggested_category": "simple_coding",
+      "reviewed_category": "simple_coding",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pylint-dev__pylint-6528",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pytest-dev__pytest-7571",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "pytest-dev__pytest-7521",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-26194",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-13142",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-9229",
+      "suggested_category": "debugging",
+      "reviewed_category": "debugging",
+      "status": "confirmed",
+      "reason": "Qwen proposal confirmed after independent public-prompt review."
+    }
+  ]
+}

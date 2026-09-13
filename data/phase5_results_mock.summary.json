@@ -1,0 +1,420 @@
+{
+  "dataset_sha256": "d35f6570160f9ef204f9b7e63903bbc74c4a72d0c9701949920e14f779239a93",
+  "generated_at": "2026-09-09T09:24:36.124634+00:00",
+  "mode": "mock",
+  "results": {
+    "scenarios": {
+      "luna_adaptive": {
+        "tasks": 2,
+        "successes": 2,
+        "success_rate": 1.0,
+        "first_attempt_success_rate": 1.0,
+        "escalation_rate": 0.0,
+        "average_attempts": 1.0,
+        "average_latency_ms": 1.0,
+        "average_planning_latency_ms": 0.0,
+        "planner_fallback_rate": 0.0,
+        "planner_failure_rate": 0.0,
+        "planner_status_distribution": {
+          "online": 2
+        },
+        "planner_used_distribution": {
+          "luna": 2
+        },
+        "model_distribution": {
+          "luna": 1,
+          "terra": 1
+        },
+        "usage": {
+          "metric": "mock_estimated_usage",
+          "total": 51.102000000000004,
+          "average": 25.551000000000002,
+          "per_success": 25.551000000000002,
+          "missing_rows": 0,
+          "local_planning_input_tokens": null,
+          "local_planning_output_tokens": null
+        },
+        "efficiency": 0.03913741145160659
+      },
+      "none_adaptive": {
+        "tasks": 2,
+        "successes": 2,
+        "success_rate": 1.0,
+        "first_attempt_success_rate": 1.0,
+        "escalation_rate": 0.0,
+        "average_attempts": 1.0,
+        "average_latency_ms": 1.0,
+        "average_planning_latency_ms": 0.0,
+        "planner_fallback_rate": 0.0,
+        "planner_failure_rate": 0.0,
+        "planner_status_distribution": {
+          "online": 2
+        },
+        "planner_used_distribution": {
+          "none": 2
+        },
+        "model_distribution": {
+          "luna": 1,
+          "terra": 1
+        },
+        "usage": {
+          "metric": "mock_estimated_usage",
+          "total": 18.549999999999997,
+          "average": 9.274999999999999,
+          "per_success": 9.274999999999999,
+          "missing_rows": 0,
+          "local_planning_input_tokens": null,
+          "local_planning_output_tokens": null
+        },
+        "efficiency": 0.10781671159029652
+      },
+      "none_astra": {
+        "tasks": 2,
+        "successes": 2,
+        "success_rate": 1.0,
+        "first_attempt_success_rate": 1.0,
+        "escalation_rate": 0.0,
+        "average_attempts": 1.0,
+        "average_latency_ms": 1.0,
+        "average_planning_latency_ms": 0.0,
+        "planner_fallback_rate": 0.0,
+        "planner_failure_rate": 0.0,
+        "planner_status_distribution": {
+          "online": 2
+        },
+        "planner_used_distribution": {
+          "none": 2
+        },
+        "model_distribution": {
+          "astra": 2
+        },
+        "usage": {
+          "metric": "mock_estimated_usage",
+          "total": 30.6,
+          "average": 15.3,
+          "per_success": 15.3,
+          "missing_rows": 0,
+          "local_planning_input_tokens": null,
+          "local_planning_output_tokens": null
+        },
+        "efficiency": 0.06535947712418301
+      },
+      "none_sol": {
+        "tasks": 2,
+        "successes": 2,
+        "success_rate": 1.0,
+        "first_attempt_success_rate": 1.0,
+        "escalation_rate": 0.0,
+        "average_attempts": 1.0,
+        "average_latency_ms": 1.0,
+        "average_planning_latency_ms": 0.0,
+        "planner_fallback_rate": 0.0,
+        "planner_failure_rate": 0.0,
+        "planner_status_distribution": {
+          "online": 2
+        },
+        "planner_used_distribution": {
+          "none": 2
+        },
+        "model_distribution": {
+          "sol": 2
+        },
+        "usage": {
+          "metric": "mock_estimated_usage",
+          "total": 45.9,
+          "average": 22.95,
+          "per_success": 22.95,
+          "missing_rows": 0,
+          "local_planning_input_tokens": null,
+          "local_planning_output_tokens": null
+        },
+        "efficiency": 0.04357298474945534
+      },
+      "qwen_adaptive": {
+        "tasks": 2,
+        "successes": 2,
+        "success_rate": 1.0,
+        "first_attempt_success_rate": 1.0,
+        "escalation_rate": 0.0,
+        "average_attempts": 1.0,
+        "average_latency_ms": 1.0,
+        "average_planning_latency_ms": 0.0,
+        "planner_fallback_rate": 0.0,
+        "planner_failure_rate": 0.0,
+        "planner_status_distribution": {
+          "online": 2
+        },
+        "planner_used_distribution": {
+          "qwen": 2
+        },
+        "model_distribution": {
+          "luna": 1,
+          "terra": 1
+        },
+        "usage": {
+          "metric": "mock_estimated_usage",
+          "total": 51.102000000000004,
+          "average": 25.551000000000002,
+          "per_success": 25.551000000000002,
+          "missing_rows": 0,
+          "local_planning_input_tokens": null,
+          "local_planning_output_tokens": null
+        },
+        "efficiency": 0.03913741145160659
+      }
+    },
+    "categories": {
+      "simple_coding": {
+        "luna_adaptive": {
+          "tasks": 2,
+          "successes": 2,
+          "success_rate": 1.0,
+          "first_attempt_success_rate": 1.0,
+          "escalation_rate": 0.0,
+          "average_attempts": 1.0,
+          "average_latency_ms": 1.0,
+          "average_planning_latency_ms": 0.0,
+          "planner_fallback_rate": 0.0,
+          "planner_failure_rate": 0.0,
+          "planner_status_distribution": {
+            "online": 2
+          },
+          "planner_used_distribution": {
+            "luna": 2
+          },
+          "model_distribution": {
+            "luna": 1,
+            "terra": 1
+          },
+          "usage": {
+            "metric": "mock_estimated_usage",
+            "total": 51.102000000000004,
+            "average": 25.551000000000002,
+            "per_success": 25.551000000000002,
+            "missing_rows": 0,
+            "local_planning_input_tokens": null,
+            "local_planning_output_tokens": null
+          },
+          "efficiency": 0.03913741145160659
+        },
+        "none_adaptive": {
+          "tasks": 2,
+          "successes": 2,
+          "success_rate": 1.0,
+          "first_attempt_success_rate": 1.0,
+          "escalation_rate": 0.0,
+          "average_attempts": 1.0,
+          "average_latency_ms": 1.0,
+          "average_planning_latency_ms": 0.0,
+          "planner_fallback_rate": 0.0,
+          "planner_failure_rate": 0.0,
+          "planner_status_distribution": {
+            "online": 2
+          },
+          "planner_used_distribution": {
+            "none": 2
+          },
+          "model_distribution": {
+            "luna": 1,
+            "terra": 1
+          },
+          "usage": {
+            "metric": "mock_estimated_usage",
+            "total": 18.549999999999997,
+            "average": 9.274999999999999,
+            "per_success": 9.274999999999999,
+            "missing_rows": 0,
+            "local_planning_input_tokens": null,
+            "local_planning_output_tokens": null
+          },
+          "efficiency": 0.10781671159029652
+        },
+        "none_astra": {
+          "tasks": 2,
+          "successes": 2,
+          "success_rate": 1.0,
+          "first_attempt_success_rate": 1.0,
+          "escalation_rate": 0.0,
+          "average_attempts": 1.0,
+          "average_latency_ms": 1.0,
+          "average_planning_latency_ms": 0.0,
+          "planner_fallback_rate": 0.0,
+          "planner_failure_rate": 0.0,
+          "planner_status_distribution": {
+            "online": 2
+          },
+          "planner_used_distribution": {
+            "none": 2
+          },
+          "model_distribution": {
+            "astra": 2
+          },
+          "usage": {
+            "metric": "mock_estimated_usage",
+            "total": 30.6,
+            "average": 15.3,
+            "per_success": 15.3,
+            "missing_rows": 0,
+            "local_planning_input_tokens": null,
+            "local_planning_output_tokens": null
+          },
+          "efficiency": 0.06535947712418301
+        },
+        "none_sol": {
+          "tasks": 2,
+          "successes": 2,
+          "success_rate": 1.0,
+          "first_attempt_success_rate": 1.0,
+          "escalation_rate": 0.0,
+          "average_attempts": 1.0,
+          "average_latency_ms": 1.0,
+          "average_planning_latency_ms": 0.0,
+          "planner_fallback_rate": 0.0,
+          "planner_failure_rate": 0.0,
+          "planner_status_distribution": {
+            "online": 2
+          },
+          "planner_used_distribution": {
+            "none": 2
+          },
+          "model_distribution": {
+            "sol": 2
+          },
+          "usage": {
+            "metric": "mock_estimated_usage",
+            "total": 45.9,
+            "average": 22.95,
+            "per_success": 22.95,
+            "missing_rows": 0,
+            "local_planning_input_tokens": null,
+            "local_planning_output_tokens": null
+          },
+          "efficiency": 0.04357298474945534
+        },
+        "qwen_adaptive": {
+          "tasks": 2,
+          "successes": 2,
+          "success_rate": 1.0,
+          "first_attempt_success_rate": 1.0,
+          "escalation_rate": 0.0,
+          "average_attempts": 1.0,
+          "average_latency_ms": 1.0,
+          "average_planning_latency_ms": 0.0,
+          "planner_fallback_rate": 0.0,
+          "planner_failure_rate": 0.0,
+          "planner_status_distribution": {
+            "online": 2
+          },
+          "planner_used_distribution": {
+            "qwen": 2
+          },
+          "model_distribution": {
+            "luna": 1,
+            "terra": 1
+          },
+          "usage": {
+            "metric": "mock_estimated_usage",
+            "total": 51.102000000000004,
+            "average": 25.551000000000002,
+            "per_success": 25.551000000000002,
+            "missing_rows": 0,
+            "local_planning_input_tokens": null,
+            "local_planning_output_tokens": null
+          },
+          "efficiency": 0.03913741145160659
+        }
+      }
+    },
+    "comparisons": {
+      "qwen_adaptive_vs_luna_adaptive": {
+        "same_task_volume": true,
+        "usage_saving_percent": 0.0,
+        "success_rate_delta": 0.0,
+        "first_attempt_success_rate_delta": 0.0,
+        "average_latency_ms_delta": 0.0
+      },
+      "qwen_adaptive_vs_none_adaptive": {
+        "same_task_volume": true,
+        "usage_saving_percent": -175.48247978436663,
+        "success_rate_delta": 0.0,
+        "first_attempt_success_rate_delta": 0.0,
+        "average_latency_ms_delta": 0.0
+      },
+      "luna_adaptive_vs_none_adaptive": {
+        "same_task_volume": true,
+        "usage_saving_percent": -175.48247978436663,
+        "success_rate_delta": 0.0,
+        "first_attempt_success_rate_delta": 0.0,
+        "average_latency_ms_delta": 0.0
+      },
+      "none_astra_vs_none_sol": {
+        "same_task_volume": true,
+        "usage_saving_percent": 33.33333333333333,
+        "success_rate_delta": 0.0,
+        "first_attempt_success_rate_delta": 0.0,
+        "average_latency_ms_delta": 0.0
+      },
+      "qwen_adaptive_vs_none_astra": {
+        "same_task_volume": true,
+        "usage_saving_percent": -67.0,
+        "success_rate_delta": 0.0,
+        "first_attempt_success_rate_delta": 0.0,
+        "average_latency_ms_delta": 0.0
+      }
+    },
+    "category_comparisons": {
+      "simple_coding": {
+        "qwen_adaptive_vs_luna_adaptive": {
+          "same_task_volume": true,
+          "usage_saving_percent": 0.0,
+          "success_rate_delta": 0.0,
+          "first_attempt_success_rate_delta": 0.0,
+          "average_latency_ms_delta": 0.0
+        },
+        "qwen_adaptive_vs_none_adaptive": {
+          "same_task_volume": true,
+          "usage_saving_percent": -175.48247978436663,
+          "success_rate_delta": 0.0,
+          "first_attempt_success_rate_delta": 0.0,
+          "average_latency_ms_delta": 0.0
+        },
+        "luna_adaptive_vs_none_adaptive": {
+          "same_task_volume": true,
+          "usage_saving_percent": -175.48247978436663,
+          "success_rate_delta": 0.0,
+          "first_attempt_success_rate_delta": 0.0,
+          "average_latency_ms_delta": 0.0
+        },
+        "none_astra_vs_none_sol": {
+          "same_task_volume": true,
+          "usage_saving_percent": 33.33333333333333,
+          "success_rate_delta": 0.0,
+          "first_attempt_success_rate_delta": 0.0,
+          "average_latency_ms_delta": 0.0
+        },
+        "qwen_adaptive_vs_none_astra": {
+          "same_task_volume": true,
+          "usage_saving_percent": -67.0,
+          "success_rate_delta": 0.0,
+          "first_attempt_success_rate_delta": 0.0,
+          "average_latency_ms_delta": 0.0
+        }
+      }
+    },
+    "missing_required_categories": [
+      "normal_implementation",
+      "debugging",
+      "large_refactor",
+      "architecture",
+      "repository_analysis",
+      "long_agentic",
+      "large_context"
+    ],
+    "claim_blockers": [
+      "results are not from real execution",
+      "only 2 unique tasks; at least 100 required",
+      "required task categories are missing"
+    ],
+    "claims_ready": false
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-09-10T13:45:43.417822+00:00",
+  "source_manifest_sha256": "e18ef1f67cb941377e12d614e6a857ae2f2c2f639550a6611503af31fbcdc0af",
+  "expected_tasks": 100,
+  "proposals": 100,
+  "complete": true,
+  "human_review_required": true,
+  "category_distribution": {
+    "simple_coding": 18,
+    "normal_implementation": 20,
+    "debugging": 60,
+    "large_refactor": 0,
+    "architecture": 1,
+    "repository_analysis": 0,
+    "long_agentic": 1,
+    "large_context": 0
+  },
+  "missing_categories": [
+    "large_refactor",
+    "repository_analysis",
+    "large_context"
+  ],
+  "flag_distribution": {
+    "requires_repository_inspection": 45,
+    "source_bias": 8,
+    "weak_prompt_evidence": 2
+  },
+  "low_confidence_threshold": 0.75,
+  "low_confidence_tasks": [
+    "pydata__xarray-6992",
+    "sphinx-doc__sphinx-7590",
+    "sympy__sympy-12489",
+    "sympy__sympy-13878",
+    "django__django-11885",
+    "django__django-11740",
+    "mwaskom__seaborn-3069",
+    "psf__requests-6028",
+    "pytest-dev__pytest-5787",
+    "astropy__astropy-13398",
+    "pylint-dev__pylint-4661"
+  ],
+  "qwen_batches": 4,
+  "qwen_input_tokens": 82412,
+  "qwen_output_tokens": 40876,
+  "qwen_duration_ms": 858791
+}

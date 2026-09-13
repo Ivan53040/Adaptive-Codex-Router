@@ -1,0 +1,8 @@
+[console_scripts]
+smart-codex = adaptive_codex_router.cli:main
+smart-codex-benchmark = adaptive_codex_router.benchmark.runner:main
+smart-codex-category-finalize = adaptive_codex_router.benchmark.category_finalize:main
+smart-codex-category-review = adaptive_codex_router.benchmark.category_review:main
+smart-codex-corpus = adaptive_codex_router.benchmark.corpus:main
+smart-codex-eval = adaptive_codex_router.benchmark.evaluator:main
+smart-codex-phase5 = adaptive_codex_router.benchmark.phase5:main

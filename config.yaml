@@ -1,0 +1,76 @@
+{
+  "reliability_threshold": 0.92,
+  "max_attempts": 3,
+  "classifier": {
+    "mode": "codex",
+    "codex_command": "codex",
+    "timeout_seconds": 45,
+    "batch_timeout_seconds": 120,
+    "max_malformed_retries": 1,
+    "working_directory": "data/classifier_workspace"
+  },
+  "planning": {
+    "default_provider": "qwen",
+    "max_malformed_retries": 1,
+    "working_directory": "data/planner_workspace",
+    "qwen": {
+      "base_url": "http://127.0.0.1:8080",
+      "model": "qwen3.8-27b",
+      "timeout_seconds": 900,
+      "max_tokens": 16384,
+      "max_context_chars": 12000,
+      "reasoning_effort": "high"
+    },
+    "luna": {
+      "codex_command": "codex",
+      "timeout_seconds": 120
+    }
+  },
+  "executor": {
+    "mode": "codex",
+    "codex_command": "codex",
+    "timeout_seconds": 900,
+    "cancel_grace_seconds": 3,
+    "sandbox": "workspace-write",
+    "approval_policy": "auto-review",
+    "require_git_repository": true,
+    "output_directory": "data/executor_workspace"
+  },
+  "models": {
+    "luna": {
+      "model": "gpt-5.6-luna",
+      "class": "cheap",
+      "efforts": ["low", "medium", "high"],
+      "available": true
+    },
+    "terra": {
+      "model": "gpt-5.6-terra",
+      "class": "balanced",
+      "efforts": ["low", "medium", "high"],
+      "available": true
+    },
+    "sol": {
+      "model": "gpt-5.6-sol",
+      "class": "strong",
+      "efforts": ["medium", "high", "xhigh"],
+      "available": true
+    },
+    "astra": {
+      "model": "gpt-6-astra",
+      "class": "frontier",
+      "efforts": ["low", "medium", "high", "xhigh", "max"],
+      "available": true
+    }
+  },
+  "astra": {
+    "xhigh_escalation_only": true,
+    "max_automatic": false,
+    "max_require_previous_failure": true,
+    "max_require_high_task_value": true,
+    "max_require_explicit_permission": true
+  },
+  "telemetry": {
+    "path": "data/routing_history.jsonl",
+    "log_prompts": false
+  }
+}
