@@ -10,3 +10,9 @@
 - The dashboard starts the existing CLI with `shell=False`; it does not contain
   separate planner or routing logic.
 - Full SWE-bench claims remain blocked by the corpus and real-matrix gates.
+- Project copied and verified at `C:\Users\ivank\Desktop\Sideproject\Adaptive-Codex-Router`;
+  the old source folder remains temporarily because the active Windows workspace
+  holds a directory lock.
+- Local Git commits: `a2b37fa` and `93242ce`. GitHub push is pending `gh auth`
+  re-authentication and remote selection.
+- Master CV updated at `C:\Users\ivank\Desktop\Sideproject\Ivan Kung CV .docx`.
