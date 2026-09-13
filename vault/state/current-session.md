@@ -13,6 +13,6 @@
 - Project copied and verified at `C:\Users\ivank\Desktop\Sideproject\Adaptive-Codex-Router`;
   the old source folder remains temporarily because the active Windows workspace
   holds a directory lock.
-- Local Git commits: `a2b37fa` and `93242ce`. GitHub push is pending `gh auth`
-  re-authentication and remote selection.
+- Local Git commits: `a2b37fa`, `93242ce`, and `d47ac3c`. Public GitHub remote is
+  `https://github.com/Ivan53040/Adaptive-Codex-Router`.
 - Master CV updated at `C:\Users\ivank\Desktop\Sideproject\Ivan Kung CV .docx`.

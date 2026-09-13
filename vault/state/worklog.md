@@ -27,4 +27,6 @@ excluded `.venv`, runtime artifacts, and JSONL outputs, flattened the fixture
 repository, and created commits `a2b37fa` and `93242ce`. Updated the master CV
 with an English Adaptive Codex Router project entry and verified six rendered
 pages using Word PDF export and Poppler rasterization. GitHub push is blocked by
-an invalid `gh` authentication token.
+an invalid `gh` authentication token. GitHub authentication was then refreshed,
+the public repository was created, and all local commits were pushed to
+`origin/main`.
