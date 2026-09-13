@@ -281,7 +281,7 @@ class CodexExecutorTests(unittest.TestCase):
         )
         executor = CodexExecutor(config, popen_factory=FakePopenFactory())
         with self.assertRaisesRegex(ExecutorPreflightError, "requires a Git working tree"):
-            executor.preflight(self.root)
+            executor.preflight(self.root.parents[3])
 
 
 if __name__ == "__main__":
