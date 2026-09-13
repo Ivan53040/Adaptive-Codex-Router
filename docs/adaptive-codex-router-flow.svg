@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">Adaptive Codex Router system flow</title>
+  <desc id="desc">A coding task enters the router, passes through a planner selector with Qwen, Luna, Auto fallback, or no planner, then goes to routing policy, a selected Codex model, validation, and adaptive escalation or completion.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b1220"/><stop offset="1" stop-color="#15243a"/></linearGradient>
+    <linearGradient id="qwen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d9488"/><stop offset="1" stop-color="#14b8a6"/></linearGradient>
+    <linearGradient id="route" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2563eb"/><stop offset="1" stop-color="#4f46e5"/></linearGradient>
+    <linearGradient id="validate" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c2410c"/><stop offset="1" stop-color="#ea580c"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity=".28"/></filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7dd3fc"/></marker>
+    <style>
+      .title{font:700 34px Segoe UI,Arial,sans-serif;fill:#f8fafc}.subtitle{font:400 16px Segoe UI,Arial,sans-serif;fill:#a9bad2}
+      .label{font:700 19px Segoe UI,Arial,sans-serif;fill:#fff}.small{font:400 14px Segoe UI,Arial,sans-serif;fill:#dbeafe}.tiny{font:400 13px Segoe UI,Arial,sans-serif;fill:#b8c7dc}
+      .box{stroke:#7dd3fc;stroke-width:1.5}.line{fill:none;stroke:#7dd3fc;stroke-width:3;marker-end:url(#arrow)}.dashed{fill:none;stroke:#fbbf24;stroke-width:2.5;stroke-dasharray:8 8;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1400" height="820" fill="url(#bg)"/>
+  <text x="70" y="64" class="title">Adaptive Codex Router</text>
+  <text x="70" y="94" class="subtitle">Local planning, cost-aware model routing, objective validation, and failure-aware escalation</text>
+
+  <rect x="70" y="145" width="220" height="94" rx="16" fill="#1e3a5f" class="box" filter="url(#shadow)"/>
+  <text x="180" y="182" text-anchor="middle" class="label">User Task</text><text x="180" y="210" text-anchor="middle" class="small">Prompt + repository</text>
+  <path d="M290 192H360" class="line"/>
+
+  <rect x="360" y="125" width="330" height="135" rx="18" fill="#172554" class="box" filter="url(#shadow)"/>
+  <text x="525" y="163" text-anchor="middle" class="label">Planning Agent Selector</text><text x="525" y="191" text-anchor="middle" class="small">Choose a provider by mode</text>
+  <rect x="388" y="211" width="78" height="30" rx="8" fill="url(#qwen)"/><text x="427" y="232" text-anchor="middle" class="small">Qwen</text>
+  <rect x="478" y="211" width="78" height="30" rx="8" fill="#475569"/><text x="517" y="232" text-anchor="middle" class="small">Luna</text>
+  <rect x="568" y="211" width="52" height="30" rx="8" fill="#475569"/><text x="594" y="232" text-anchor="middle" class="small">Auto</text>
+  <rect x="632" y="211" width="40" height="30" rx="8" fill="#475569"/><text x="652" y="232" text-anchor="middle" class="small">None</text>
+  <path d="M690 192H760" class="line"/>
+
+  <rect x="760" y="145" width="250" height="94" rx="16" fill="url(#qwen)" class="box" filter="url(#shadow)"/>
+  <text x="885" y="182" text-anchor="middle" class="label">Planning Result</text><text x="885" y="210" text-anchor="middle" class="small">Features · files · plan · risks</text>
+  <path d="M885 239V295" class="line"/>
+
+  <rect x="700" y="295" width="370" height="112" rx="18" fill="url(#route)" class="box" filter="url(#shadow)"/>
+  <text x="885" y="335" text-anchor="middle" class="label">Routing Policy</text><text x="885" y="363" text-anchor="middle" class="small">Select least expensive likely-successful route</text><text x="885" y="387" text-anchor="middle" class="tiny">Luna · Terra · Sol · Astra</text>
+  <path d="M885 407V467" class="line"/>
+
+  <rect x="700" y="467" width="370" height="108" rx="18" fill="#1e3a5f" class="box" filter="url(#shadow)"/>
+  <text x="885" y="507" text-anchor="middle" class="label">Codex Executor</text><text x="885" y="535" text-anchor="middle" class="small">Isolated workspace · model + effort</text><text x="885" y="558" text-anchor="middle" class="tiny">Changes are captured as a patch or commit</text>
+  <path d="M885 575V635" class="line"/>
+
+  <rect x="700" y="635" width="370" height="100" rx="18" fill="url(#validate)" class="box" filter="url(#shadow)"/>
+  <text x="885" y="673" text-anchor="middle" class="label">Objective Validation</text><text x="885" y="701" text-anchor="middle" class="small">Tests · required output · changed files</text>
+
+  <path d="M700 685H520V490H700" class="dashed"/>
+  <text x="548" y="475" text-anchor="middle" class="tiny" fill="#fbbf24">failure → escalate</text>
+  <path d="M1070 685H1195V520H1070" class="dashed"/>
+  <text x="1195" y="505" text-anchor="middle" class="tiny" fill="#fbbf24">retry / stronger route</text>
+
+  <rect x="70" y="395" width="430" height="180" rx="18" fill="#172033" stroke="#475569" stroke-width="1.5"/>
+  <text x="285" y="433" text-anchor="middle" class="label">Telemetry and Dashboard</text>
+  <text x="285" y="465" text-anchor="middle" class="small">Planner used · model used · latency</text>
+  <text x="285" y="491" text-anchor="middle" class="small">Attempts · escalation · Codex tokens</text>
+  <text x="285" y="517" text-anchor="middle" class="small">Local Qwen tokens · success rate</text>
+  <text x="285" y="548" text-anchor="middle" class="tiny">Append-only JSONL + live local dashboard</text>
+  <path d="M700 520H500" class="dashed"/>
+
+  <text x="885" y="785" text-anchor="middle" class="tiny">Success → finish and record evidence   ·   Validation failure → retry / escalate   ·   Planner failure → deterministic fallback</text>
+</svg>

@@ -6,6 +6,8 @@ succeed. The default planner is a local Qwen3.8-27B llama-server, so repository
 analysis consumes no Codex allowance. Luna, automatic fallback, and deterministic
 no-planner modes are also supported.
 
+![Adaptive Codex Router system flow](docs/adaptive-codex-router-flow.svg)
+
 ## What works now
 
 - A provider-neutral `PlanningResult` with classification, relevant files,
@@ -100,6 +102,8 @@ All providers receive the prompt, target workspace, and small metadata. Qwen is
 sent a bounded text snapshot of the repository; Luna receives read-only Codex
 access to the target. `none` reads no repository content.
 
+![Planner selection and fallback](docs/planner-fallback-flow.svg)
+
 ```powershell
 python -m adaptive_codex_router --metadata-json '{"files_explicitly_mentioned":3,"tests_requested":true,"cross_module_dependency":true}' "Implement the requested feature"
 ```
@@ -139,6 +143,8 @@ Always Astra Low, and Adaptive Router. Every real run receives a detached Git
 worktree at the same resolved commit. A task's external validation command must
 fail at that base commit before any model runs and pass after a valid solution.
 
+![Phase 4 coding strategy comparison](docs/phase4-strategy-matrix.svg)
+
 Inspect the planned call volume without executing models:
 
 ```powershell
@@ -175,6 +181,10 @@ Phase 5 adds a scenario matrix over the Phase 4 task/worktree safeguards. The
 default scenarios are Qwen/Luna/None + Adaptive, plus No Planner + Sol High and
 No Planner + Astra Low. This separates planner effects from routing and retains
 the original Astra efficiency comparison.
+
+![Phase 5 planner and routing matrix](docs/phase5-benchmark-matrix.svg)
+
+![Validation and evidence gate](docs/validation-evidence-gate.svg)
 
 Inspect the real call volume without running a model:
 
@@ -281,6 +291,8 @@ the review gate while retaining the suggested category, final category,
 reviewer, authority, timestamp, and decision hash in provenance.
 
 ## Classifier calibration
+
+![Classifier calibration modes](docs/classifier-calibration.svg)
 
 The checked-in dataset contains 40 synthetic tasks. A mock run is free and useful
 for verifying the harness:
