@@ -17,13 +17,16 @@ Outputs in [`../media/`](../media):
 
 - `adaptive-codex-router-intro.mp4` — 1080p30, H.264/AAC, English voice-over, burned-in English subtitles, about 9 MB
 - `adaptive-codex-router-intro.en.srt` / `.en.vtt` — the same subtitles as separate files
-- `adaptive-codex-router-intro-poster.png` — the README thumbnail
 
-GitHub only shows an inline player for videos uploaded through its web editor;
-a video committed to the repository opens from a link. The MP4 is kept under
-GitHub's 10 MB upload limit for free accounts, so you can drag it into the
-README editor on github.com and replace the poster link with the
-`https://github.com/user-attachments/assets/...` URL that GitHub creates.
+`build.sh` also writes a 1280×720 thumbnail with a play button to the build
+folder, for places that need a still image.
+
+GitHub only shows an inline player for videos uploaded through its web editor,
+so the README embeds the uploaded copy
+(`https://github.com/user-attachments/assets/...`) and links the MP4 in this
+repository as a fallback. The MP4 is kept under GitHub's 10 MB upload limit for
+free accounts. After rebuilding, drag the new MP4 into the README editor on
+github.com and replace the old `user-attachments` URL.
 
 ## Rebuild
 

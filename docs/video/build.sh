@@ -36,7 +36,7 @@ ffmpeg -hide_banner -loglevel error -y -i "$BUILD/mix.wav" -af \
   "loudnorm=I=-16:TP=-1.5:LRA=11:measured_I=$(get input_i):measured_TP=$(get input_tp):measured_LRA=$(get input_lra):measured_thresh=$(get input_thresh):offset=$(get target_offset):linear=true,aresample=48000" \
   -c:a pcm_s16le "$BUILD/mix_norm.wav"
 
-echo "5/5 compress, mux + poster (two-pass 440 kbps keeps the file under GitHub's 10 MB video upload limit)"
+echo "5/5 compress, mux + thumbnail (two-pass 440 kbps keeps the file under GitHub's 10 MB video upload limit)"
 X264=(-c:v libx264 -preset slow -tune animation -b:v 440k -passlogfile "$BUILD/x264" -pix_fmt yuv420p -an)
 ffmpeg -hide_banner -loglevel error -y -i "$BUILD/video_silent.mp4" "${X264[@]}" -pass 1 -f null /dev/null
 ffmpeg -hide_banner -loglevel error -y -i "$BUILD/video_silent.mp4" "${X264[@]}" -pass 2 "$BUILD/video_small.mp4"
@@ -48,5 +48,5 @@ cp "$BUILD/subtitles.en.srt" "$MEDIA/$NAME.en.srt"
 cp "$BUILD/subtitles.en.vtt" "$MEDIA/$NAME.en.vtt"
 DUR=$("$PY" -c "import json,sys;d=json.load(open(sys.argv[1]))['duration'];print(f'{int(d//60)}:{int(d%60):02d}')" "$BUILD/timeline.json")
 node "$HERE/render.cjs" poster "$BUILD/timeline.json" "$BUILD/poster.png" "${POSTER_TIME:-22.9}" "$DUR · English voice-over + subtitles"
-ffmpeg -hide_banner -loglevel error -y -i "$BUILD/poster.png" -vf scale=1280:720:flags=lanczos "$MEDIA/$NAME-poster.png"
+ffmpeg -hide_banner -loglevel error -y -i "$BUILD/poster.png" -vf scale=1280:720:flags=lanczos "$BUILD/$NAME-poster.png"
 echo "done: $MEDIA/$NAME.mp4"

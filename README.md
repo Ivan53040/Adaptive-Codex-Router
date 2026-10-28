@@ -26,13 +26,12 @@ reasoning effort that is likely to succeed.
 
 ## 🎬 Watch the intro
 
-<a href="docs/media/adaptive-codex-router-intro.mp4" title="Play the 2-minute intro video">
-  <img src="docs/media/adaptive-codex-router-intro-poster.png" alt="Adaptive Codex Router intro video. Click to play." width="100%">
-</a>
+https://github.com/user-attachments/assets/a71b32ff-165e-4f11-8215-4b00d405eeba
 
 <sub>2:14 · English voice-over · burned-in English subtitles ·
 subtitle files: [SRT](docs/media/adaptive-codex-router-intro.en.srt) /
 [VTT](docs/media/adaptive-codex-router-intro.en.vtt) ·
+player not loading? [download the MP4](docs/media/adaptive-codex-router-intro.mp4) ·
 [how the video is made](docs/video/README.md)</sub>
 
 <details>
