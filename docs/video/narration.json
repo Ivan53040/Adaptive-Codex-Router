@@ -1,0 +1,100 @@
+{
+  "title": "Adaptive Codex Router — introduction",
+  "voice": "af_heart",
+  "speed": 1.0,
+  "lead_in": 0.9,
+  "cue_gap": 0.32,
+  "scene_gap": 0.75,
+  "tail": 3.2,
+  "scenes": [
+    {
+      "id": "hook",
+      "cues": [
+        {"subs": ["Not every coding task needs the most powerful model."]},
+        {"subs": ["A typo fix and a cross-module race condition are very different jobs,",
+                  "yet most workflows send both to the same expensive tier."]}
+      ]
+    },
+    {
+      "id": "intro",
+      "cues": [
+        {"subs": ["Meet Adaptive Codex Router:",
+                  "a local, usage-aware wrapper for the Codex CLI."],
+         "say": "Meet Adaptive Codex Router: a local, usage-aware wrapper for the Codex C L I."},
+        {"subs": ["It plans every task first, then routes it to the cheapest",
+                  "model and reasoning effort that is likely to succeed."]}
+      ]
+    },
+    {
+      "id": "plan",
+      "cues": [
+        {"subs": ["Step one: plan."]},
+        {"subs": ["A local Qwen3.8-27B model analyzes your repository,",
+                  "so planning spends none of your Codex allowance."],
+         "say": "A local Kwen three point eight, twenty-seven B model analyzes your repository, so planning spends none of your Codex allowance."},
+        {"subs": ["It returns a structured plan: task type, relevant files,",
+                  "implementation steps, risks, and verification."]}
+      ]
+    },
+    {
+      "id": "fallback",
+      "cues": [
+        {"subs": ["If the local model is offline, auto mode falls back to Luna,",
+                  "then to a deterministic classifier."]},
+        {"subs": ["A planner failure never blocks your coding task."]}
+      ]
+    },
+    {
+      "id": "route",
+      "cues": [
+        {"subs": ["Step two: route."]},
+        {"subs": ["A deterministic policy picks the model and reasoning effort",
+                  "across four tiers: Luna, Terra, Sol, and Astra."]},
+        {"subs": ["A typo goes to Luna on low."]},
+        {"subs": ["A new feature gets Terra on medium."]},
+        {"subs": ["A tricky race condition goes to Sol on high."]},
+        {"subs": ["Planners can only suggest a tier. The policy decides,",
+                  "and Astra's most expensive settings stay behind explicit guardrails."]}
+      ]
+    },
+    {
+      "id": "execute",
+      "cues": [
+        {"subs": ["Step three: execute and verify."]},
+        {"subs": ["The chosen model edits your Git working tree in a sandbox,",
+                  "and objective checks decide whether it really succeeded."]},
+        {"subs": ["If it fails, the router looks at why and escalates to a stronger route,",
+                  "with up to three attempts by default."]}
+      ]
+    },
+    {
+      "id": "telemetry",
+      "cues": [
+        {"subs": ["Every run is logged as privacy-conscious telemetry,",
+                  "and prompts stay out of the logs unless you opt in."]},
+        {"subs": ["A local dashboard shows tokens, latency, models,",
+                  "and attempts as they happen."]}
+      ]
+    },
+    {
+      "id": "evidence",
+      "cues": [
+        {"subs": ["And the project stays honest about evidence."]},
+        {"subs": ["On forty calibration tasks, routing was 95% exact,",
+                  "with zero under-routes."],
+         "say": "On forty calibration tasks, routing was ninety-five percent exact, with zero under-routes."},
+        {"subs": ["A SWE-bench Verified harness is ready, but no savings are claimed",
+                  "until at least one hundred real tasks are measured."],
+         "say": "A swee-bench Verified harness is ready, but no savings are claimed until at least one hundred real tasks are measured."}
+      ]
+    },
+    {
+      "id": "outro",
+      "cues": [
+        {"subs": ["Adaptive Codex Router."]},
+        {"subs": ["Plan locally, route smartly,",
+                  "and pay only for the reasoning you need."]}
+      ]
+    }
+  ]
+}

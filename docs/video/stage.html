@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Adaptive Codex Router intro</title>
+<style>
+:root{
+  --bg0:#050a15;--bg1:#0b1324;--panel:#0f1a2e;--panel2:#14223b;--line:rgba(148,197,255,.18);
+  --text:#f1f5f9;--muted:#94a3b8;--dim:#64748b;--sky:#7dd3fc;
+  --qwen:#22c55e;--luna:#38bdf8;--terra:#818cf8;--sol:#fbbf24;--astra:#f472b6;--none:#94a3b8;
+  --ok:#4ade80;--bad:#f87171;--amber:#fbbf24;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg0)}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:Inter,system-ui,sans-serif;color:var(--text);-webkit-font-smoothing:antialiased;background:radial-gradient(1200px 800px at 15% 10%,#10203d 0%,transparent 60%),radial-gradient(1100px 700px at 90% 90%,#1a1640 0%,transparent 60%),linear-gradient(160deg,#060c19,#0a1222 55%,#070b17)}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.display{font-family:"Inter Display",Inter,sans-serif}
+#grid{position:absolute;inset:-80px;background-image:linear-gradient(rgba(125,211,252,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(125,211,252,.045) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%)}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.35}
+#orb1{width:620px;height:620px;background:#1d4ed8;left:-120px;top:-160px}
+#orb2{width:540px;height:540px;background:#7c3aed;right:-140px;bottom:-180px}
+#orb3{width:420px;height:420px;background:#0d9488;left:55%;top:30%;opacity:.16}
+#vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+.scene{position:absolute;inset:0;opacity:0;display:none}
+.abs{position:absolute}
+
+/* top bar */
+#topbar{position:absolute;left:0;right:0;top:0;height:96px;opacity:0}
+#brand{position:absolute;left:56px;top:34px;display:flex;align-items:center;gap:14px;font-weight:600;font-size:22px;color:#cbd5e1}
+#chapters{position:absolute;right:56px;top:30px;display:flex;gap:10px}
+.chap{padding:8px 18px;border-radius:999px;font-size:18px;font-weight:600;color:var(--dim);border:1px solid rgba(148,163,184,.18);background:rgba(15,23,42,.5)}
+.chap.on{color:#0b1220;background:var(--sky);border-color:var(--sky)}
+.chap.done{color:#cbd5e1;border-color:rgba(125,211,252,.35)}
+
+/* shared */
+.step-pill{display:inline-block;padding:8px 18px;border-radius:999px;font-size:20px;font-weight:700;letter-spacing:.12em;color:#0b1220;background:var(--sky)}
+.h2{font-family:"Inter Display",Inter,sans-serif;font-size:64px;font-weight:700;letter-spacing:-.02em;line-height:1.05}
+.head{left:110px;top:118px}
+.head .h2{margin-top:16px}
+.card{background:linear-gradient(180deg,rgba(22,34,59,.92),rgba(13,22,40,.92));border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.label{font-size:17px;font-weight:700;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;font-size:19px;font-weight:600;border:1px solid rgba(148,163,184,.25);color:#cbd5e1;background:rgba(15,23,42,.6)}
+svg .ln{fill:none;stroke-width:4;stroke-linecap:round}
+svg circle,svg path{transform-box:fill-box;transform-origin:center}
+
+/* subtitles */
+#subs{position:absolute;left:0;right:0;bottom:46px;display:flex;justify-content:center;pointer-events:none}
+#subs span{max-width:1560px;text-align:center;font-size:42px;line-height:1.28;font-weight:600;color:#fff;background:rgba(3,7,18,.78);padding:12px 30px 14px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35);text-shadow:0 2px 6px rgba(0,0,0,.6)}
+
+/* hook */
+#hk-title{left:0;right:0;top:150px;text-align:center;font-size:76px;font-weight:800;letter-spacing:-.025em;line-height:1.08}
+#hk-title .w{display:inline-block;margin:0 .12em}
+.grad{background:linear-gradient(90deg,#7dd3fc,#c4b5fd 50%,#f9a8d4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.task-card{width:620px;padding:26px 30px}
+.task-card .k{font-size:17px;font-weight:700;letter-spacing:.14em}
+.task-card .t{margin-top:10px;font-size:32px;font-weight:600}
+#hk-typo{left:200px;top:420px}#hk-typo .k{color:var(--luna)}
+#hk-race{left:200px;top:610px}#hk-race .k{color:var(--sol)}
+#hk-model{left:1260px;top:430px;width:460px;height:320px;padding:32px;text-align:center;border-color:rgba(244,114,182,.5);box-shadow:0 0 0 1px rgba(244,114,182,.15),0 30px 80px rgba(244,114,182,.18)}
+#hk-model .big{font-family:"Inter Display";font-size:44px;font-weight:800;margin-top:12px}
+#hk-model .cost{font-size:56px;font-weight:800;color:var(--astra);margin-top:6px;letter-spacing:.06em}
+.meter{margin:22px auto 0;width:340px;height:16px;border-radius:99px;background:rgba(148,163,184,.18);overflow:hidden}
+.meter i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#fbbf24,#f472b6,#ef4444)}
+#hk-model .cap{margin-top:12px;color:var(--muted);font-size:20px}
+#hk-stamp{left:880px;top:356px;padding:10px 20px;border:3px solid var(--bad);color:var(--bad);border-radius:12px;font-weight:800;font-size:28px;letter-spacing:.06em;transform-origin:center;background:rgba(127,29,29,.25)}
+
+/* intro */
+#in-logo{left:830px;top:150px}
+#in-title{left:0;right:0;top:360px;text-align:center;font-size:120px;font-weight:800;letter-spacing:-.035em}
+#in-sub{left:0;right:0;top:520px;text-align:center;font-size:38px;color:#cbd5e1;font-weight:500}
+#in-flow{left:0;right:0;top:640px;display:flex;justify-content:center;align-items:center;gap:18px}
+.flow-chip{padding:16px 30px;border-radius:16px;font-size:30px;font-weight:700;background:rgba(15,23,42,.75);border:1px solid var(--line)}
+.flow-arrow{font-size:30px;color:var(--dim)}
+#in-cap{left:0;right:0;top:770px;text-align:center;font-size:32px;color:var(--muted)}
+#in-cap b{color:var(--text)}
+
+/* plan */
+#pl-prompt{left:110px;top:282px;width:1700px;padding:18px 26px;font-size:26px;border-radius:16px}
+#pl-prompt .p{color:var(--sky);margin-right:14px}
+#pl-a{left:110px;top:380px;width:500px;height:430px;padding:30px}
+#pl-b{left:660px;top:380px;width:440px;height:430px;padding:30px}
+#pl-c{left:1150px;top:380px;width:660px;height:430px;padding:28px 30px}
+.pl-name{font-family:"Inter Display";font-size:40px;font-weight:800;margin-top:12px}
+.pl-row{margin-top:14px;font-size:21px;color:#cbd5e1;display:flex;gap:10px;align-items:center}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--qwen);box-shadow:0 0 12px var(--qwen)}
+#pl-zero{margin-top:26px;padding:16px 18px;border-radius:16px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.55);font-size:26px;font-weight:800;color:#86efac;text-align:center}
+.files{margin-top:16px;font-size:20px;line-height:1.85;position:relative}
+.files .skip{color:var(--dim);text-decoration:line-through}
+.files .rel{color:#e2e8f0}
+#pl-scan{position:absolute;left:-12px;right:-12px;height:38px;border-radius:8px;background:linear-gradient(90deg,rgba(34,197,94,0),rgba(34,197,94,.22),rgba(34,197,94,0));top:0}
+.json{margin-top:12px;font-size:20px;line-height:1.62;white-space:pre}
+.json .ln2{padding:0 8px;border-radius:6px;margin:0 -8px}
+.json .ln2.hl{background:rgba(125,211,252,.16);box-shadow:inset 3px 0 0 var(--sky)}
+.jk{color:#7dd3fc}.js{color:#fde68a}.jp{color:#94a3b8}
+.arrow-txt{font-size:40px;color:var(--sky)}
+
+/* fallback */
+#fb-mode{left:1410px;top:150px;font-size:26px;padding:12px 20px;border-radius:14px}
+.node{top:400px;width:440px;height:230px;padding:28px 30px}
+.node .nm{font-family:"Inter Display";font-size:40px;font-weight:800;margin-top:10px}
+.node .ds{font-size:21px;color:var(--muted);margin-top:6px}
+.status{position:absolute;right:24px;top:24px;font-size:16px;font-weight:800;letter-spacing:.12em;padding:6px 12px;border-radius:999px}
+.st-on{color:#052e16;background:var(--ok)}
+.st-off{color:#450a0a;background:var(--bad)}
+.st-wait{color:#cbd5e1;background:rgba(148,163,184,.2)}
+.st-next{color:#082f49;background:var(--luna)}
+#fb-q{left:110px}#fb-l{left:740px}#fb-n{left:1370px}
+#fb-banner{left:310px;top:720px;width:1300px;padding:26px 34px;font-size:34px;font-weight:700;text-align:center;border-color:rgba(74,222,128,.5);background:linear-gradient(180deg,rgba(20,83,45,.45),rgba(13,22,40,.92))}
+#fb-banner b{color:var(--ok)}
+.xmark{position:absolute;right:30px;bottom:-4px;font-size:120px;line-height:1;color:var(--bad);font-weight:300;text-shadow:0 0 30px rgba(248,113,113,.5)}
+
+/* route */
+.tier{top:350px;width:395px;height:280px;padding:0;overflow:hidden}
+.tier .bar{height:8px}
+.tier .in{padding:24px 26px}
+.tier .nm{font-family:"Inter Display";font-size:50px;font-weight:800}
+.tier .id{font-size:19px;color:var(--muted);margin-top:2px}
+.tier .cls{margin-top:14px;display:flex;justify-content:space-between;font-size:22px;color:#cbd5e1}
+.tier .cost{font-weight:800;letter-spacing:.08em}
+.efforts{margin-top:22px;display:flex;flex-wrap:wrap;gap:9px}
+.eff{padding:7px 13px;border-radius:10px;font-size:19px;font-weight:600;color:#cbd5e1;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.2)}
+.eff.lit{color:#0b1220;font-weight:800}
+.eff .lock{display:inline-block;margin-left:6px}
+#rt-luna{left:110px}#rt-terra{left:545px}#rt-sol{left:980px}#rt-astra{left:1415px}
+.task-pill{top:652px;width:395px;padding:14px 18px;border-radius:14px;font-size:21px;font-weight:600;line-height:1.3;background:#0f172a;border:1px solid var(--line);box-shadow:0 16px 40px rgba(0,0,0,.45)}
+.task-pill .r{display:block;margin-top:6px;font-size:18px;font-weight:700}
+#rt-note{left:1180px;top:186px;width:630px;text-align:right;font-size:19px;color:var(--muted);line-height:1.4}
+#rt-policy{left:110px;top:812px;width:1700px;display:flex;align-items:center;gap:18px;font-size:23px}
+#rt-policy .chip{font-size:21px}
+
+/* execute */
+#ex-term{left:100px;top:290px;width:1120px;height:505px;overflow:hidden;background:#060b14;border:1px solid rgba(148,163,184,.25)}
+.tbar{height:46px;display:flex;align-items:center;gap:9px;padding:0 18px;background:#0e1626;border-bottom:1px solid rgba(148,163,184,.15)}
+.tbar i{width:13px;height:13px;border-radius:50%}
+.tbar span{margin-left:14px;font-size:17px;color:var(--dim)}
+.tbody{padding:22px 28px;font-size:23px;line-height:1.75;white-space:pre;font-variant-ligatures:none}
+.tbody .cmd{color:#e2e8f0}.tbody .pr{color:var(--ok)}
+.tbody .o{color:#94a3b8}.tbody .a{color:#e2e8f0}.tbody .e{color:var(--amber)}.tbody .s{color:var(--ok);font-weight:700}
+.caret{display:inline-block;width:11px;height:24px;background:#e2e8f0;vertical-align:-4px;margin-left:2px}
+.ex-card{left:1270px;width:550px;padding:22px 28px}
+.ex-card .t{font-family:"Inter Display";font-size:32px;font-weight:800;margin-top:6px}
+.ex-card .d{font-size:21px;color:var(--muted);margin-top:6px;line-height:1.4}
+#ex-1{top:290px}#ex-2{top:466px}#ex-3{top:642px}
+.ex-card.on{opacity:1;border-color:rgba(125,211,252,.6)}
+.ex-mark{position:absolute;right:26px;top:22px;font-size:36px;font-weight:800}
+
+/* telemetry */
+#tm-list{left:110px;top:300px;width:520px}
+.tm-row{display:flex;align-items:center;gap:16px;padding:18px 22px;margin-bottom:14px;border-radius:16px;font-size:25px;font-weight:600}
+.tm-row .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:22px;font-weight:800;color:#0b1220}
+#tm-lock{border-color:rgba(74,222,128,.5);background:linear-gradient(180deg,rgba(20,83,45,.4),rgba(13,22,40,.92))}
+#tm-browser{left:690px;top:280px;width:1120px;height:620px;overflow:hidden;background:#0b1220}
+.bbar{height:48px;display:flex;align-items:center;gap:9px;padding:0 18px;background:#111b2e;border-bottom:1px solid rgba(148,163,184,.15)}
+.bbar i{width:13px;height:13px;border-radius:50%}
+.url{margin-left:16px;flex:1;height:30px;border-radius:8px;background:#0a1220;color:#94a3b8;font-size:17px;display:flex;align-items:center;padding:0 14px}
+.mock{font-size:15px;font-weight:800;letter-spacing:.1em;color:#0b1220;background:var(--amber);padding:5px 10px;border-radius:8px}
+#tm-view{position:absolute;left:0;top:48px;right:0;bottom:0;overflow:hidden}
+#tm-img{position:absolute;left:0;top:0;width:1120px;transform-origin:0 0}
+
+/* evidence */
+.stat{top:300px;width:540px;height:300px;padding:34px 36px}
+.stat .n{font-family:"Inter Display";font-size:120px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.stat .l{font-size:30px;font-weight:700;margin-top:14px}
+.stat .d{font-size:21px;color:var(--muted);margin-top:8px}
+#ev-1{left:110px}#ev-2{left:690px}#ev-3{left:1270px}
+#ev-gate{left:110px;top:640px;width:1700px;padding:30px 36px;display:flex;align-items:center;gap:30px;border-color:rgba(251,191,36,.5)}
+#ev-gate .pill{font-size:30px;font-weight:700;padding:14px 22px;border-radius:14px;color:#fde68a;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.5);white-space:nowrap}
+#ev-gate .txt{font-size:30px;line-height:1.35;font-weight:600}
+#ev-gate .txt span{color:var(--muted);font-weight:500}
+
+/* outro */
+#ou-logo{left:830px;top:130px}
+#ou-title{left:0;right:0;top:330px;text-align:center;font-size:110px;font-weight:800;letter-spacing:-.035em}
+#ou-tag{left:0;right:0;top:480px;text-align:center;font-size:44px;font-weight:600}
+#ou-tag span{display:inline-block;margin:0 10px}
+#ou-cmd{left:460px;top:600px;width:1000px;padding:22px 30px;font-size:28px;text-align:center;border-radius:18px}
+#ou-cmd .p{color:var(--ok)}
+#ou-url{left:0;right:0;top:720px;text-align:center;font-size:30px;color:#cbd5e1}
+#fade{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+
+/* poster */
+#poster{position:absolute;inset:0;display:none}
+#poster .shade{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(2,6,23,.15),rgba(2,6,23,.55))}
+#poster .play{position:absolute;left:50%;top:845px;transform:translate(-50%,-50%);display:flex;align-items:center;gap:26px;padding:22px 40px 22px 24px;border-radius:999px;background:rgba(255,255,255,.96);color:#0b1220;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+#poster .tri{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#818cf8 55%,#f472b6);display:grid;place-items:center}
+#poster .tri i{width:0;height:0;border-left:30px solid #fff;border-top:19px solid transparent;border-bottom:19px solid transparent;margin-left:8px}
+#poster .pt{font-size:38px;font-weight:800;letter-spacing:-.01em}
+#poster .ps{font-size:24px;color:#475569;font-weight:600;margin-top:2px}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="grid"></div>
+  <div class="orb" id="orb1"></div><div class="orb" id="orb2"></div><div class="orb" id="orb3"></div>
+
+  <div id="topbar">
+    <div id="brand"><svg width="44" height="30" viewBox="0 0 260 160"><use href="#logo-sym"/></svg>Adaptive Codex Router</div>
+    <div id="chapters">
+      <div class="chap" data-s="plan">1 · Plan</div><div class="chap" data-s="route">2 · Route</div><div class="chap" data-s="execute">3 · Execute</div><div class="chap" data-s="telemetry">Observe</div><div class="chap" data-s="evidence">Evidence</div>
+    </div>
+  </div>
+
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <symbol id="logo-sym" viewBox="0 0 260 160">
+        <path d="M40 80 C110 80 120 22 220 22" fill="none" stroke="#38bdf8" stroke-width="10" stroke-linecap="round"/>
+        <path d="M40 80 C110 80 130 61 220 61" fill="none" stroke="#818cf8" stroke-width="10" stroke-linecap="round"/>
+        <path d="M40 80 C110 80 130 99 220 99" fill="none" stroke="#fbbf24" stroke-width="10" stroke-linecap="round"/>
+        <path d="M40 80 C110 80 120 138 220 138" fill="none" stroke="#f472b6" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="40" cy="80" r="26" fill="#f1f5f9"/><circle cx="220" cy="22" r="14" fill="#38bdf8"/><circle cx="220" cy="61" r="14" fill="#818cf8"/><circle cx="220" cy="99" r="14" fill="#fbbf24"/><circle cx="220" cy="138" r="14" fill="#f472b6"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- 1. hook -->
+  <section class="scene" id="s-hook">
+    <div class="abs display" id="hk-title"><span class="w">Not</span><span class="w">every</span><span class="w">coding</span><span class="w">task</span><span class="w">needs</span><br><span class="w">the</span><span class="w grad">most</span><span class="w grad">powerful</span><span class="w">model.</span></div>
+    <div class="abs card task-card" id="hk-typo"><div class="k">TRIVIAL · ONE LINE</div><div class="t">Fix a typo in README.md</div></div>
+    <div class="abs card task-card" id="hk-race"><div class="k">HARD · MULTI-MODULE</div><div class="t">Debug a race condition across modules</div></div>
+    <svg class="abs" style="left:0;top:0" width="1920" height="1080">
+      <path id="hk-a1" class="ln" stroke="#38bdf8" d="M830 480 C1030 480 1060 560 1240 560"/>
+      <path id="hk-a2" class="ln" stroke="#fbbf24" d="M830 670 C1030 670 1060 620 1240 620"/>
+      <path id="hk-h1" d="M1252 560 l-18 -11 v22z" fill="#38bdf8"/>
+      <path id="hk-h2" d="M1252 620 l-18 -11 v22z" fill="#fbbf24"/>
+    </svg>
+    <div class="abs card" id="hk-model"><div class="label">Same model for both</div><div class="big">Most expensive tier</div><div class="cost">$$$$</div><div class="meter"><i id="hk-fill"></i></div><div class="cap">Codex allowance burned</div></div>
+    <div class="abs" id="hk-stamp">OVERKILL</div>
+  </section>
+
+  <!-- 2. intro -->
+  <section class="scene" id="s-intro">
+    <svg class="abs" id="in-logo" width="260" height="160" viewBox="0 0 260 160">
+      <path class="lg" d="M40 80 C110 80 120 22 220 22" fill="none" stroke="#38bdf8" stroke-width="10" stroke-linecap="round"/>
+      <path class="lg" d="M40 80 C110 80 130 61 220 61" fill="none" stroke="#818cf8" stroke-width="10" stroke-linecap="round"/>
+      <path class="lg" d="M40 80 C110 80 130 99 220 99" fill="none" stroke="#fbbf24" stroke-width="10" stroke-linecap="round"/>
+      <path class="lg" d="M40 80 C110 80 120 138 220 138" fill="none" stroke="#f472b6" stroke-width="10" stroke-linecap="round"/>
+      <circle id="lg-src" cx="40" cy="80" r="26" fill="#f1f5f9"/>
+      <circle class="lgd" cx="220" cy="22" r="14" fill="#38bdf8"/><circle class="lgd" cx="220" cy="61" r="14" fill="#818cf8"/><circle class="lgd" cx="220" cy="99" r="14" fill="#fbbf24"/><circle class="lgd" cx="220" cy="138" r="14" fill="#f472b6"/>
+    </svg>
+    <div class="abs display" id="in-title"><span class="grad">Adaptive Codex Router</span></div>
+    <div class="abs" id="in-sub">A local, usage-aware wrapper for the Codex CLI</div>
+    <div class="abs" id="in-flow">
+      <div class="flow-chip" style="color:var(--qwen)">Plan</div><div class="flow-arrow">→</div>
+      <div class="flow-chip" style="color:var(--luna)">Route</div><div class="flow-arrow">→</div>
+      <div class="flow-chip" style="color:var(--terra)">Execute</div><div class="flow-arrow">→</div>
+      <div class="flow-chip" style="color:var(--sol)">Validate</div><div class="flow-arrow">→</div>
+      <div class="flow-chip" style="color:var(--astra)">Escalate</div>
+    </div>
+    <div class="abs" id="in-cap">The <b>cheapest model + reasoning effort</b> that is likely to succeed</div>
+  </section>
+
+  <!-- 3. plan -->
+  <section class="scene" id="s-plan">
+    <div class="abs head" id="pl-head"><span class="step-pill" style="background:var(--qwen)">STEP 1 OF 3</span><div class="h2">Plan the task locally</div></div>
+    <div class="abs card mono" id="pl-prompt"><span class="p">›</span>Implement pagination for the user list</div>
+    <div class="abs card" id="pl-a">
+      <div class="label">Default planner</div>
+      <div class="pl-name">Qwen3.8-27B</div>
+      <div class="pl-row"><span class="dot"></span>llama-server · 127.0.0.1:8080</div>
+      <div class="pl-row"><span class="dot"></span>thinking on · reasoning high</div>
+      <div class="pl-row"><span class="dot"></span>strict JSON schema output</div>
+      <div id="pl-zero">0 Codex allowance used</div>
+    </div>
+    <div class="abs card" id="pl-b">
+      <div class="label">Bounded repo snapshot</div>
+      <div class="files mono">
+        <div id="pl-scan"></div>
+        <div class="rel">src/api/users.py</div>
+        <div class="rel">src/api/pagination.py</div>
+        <div class="rel">src/db/queries.py</div>
+        <div class="rel">tests/test_users.py</div>
+        <div class="rel">README.md</div>
+        <div class="skip">.git/</div>
+        <div class="skip">node_modules/</div>
+        <div class="skip">dist/  logo.png</div>
+      </div>
+    </div>
+    <div class="abs card" id="pl-c">
+      <div class="label" style="text-transform:none;letter-spacing:.06em">PlanningResult <span style="color:var(--dim);letter-spacing:.04em;text-transform:none;font-weight:500">· example</span></div>
+      <div class="json mono"><div class="ln2"><span class="jp">{</span></div><div class="ln2" id="j-type">  <span class="jk">"task_type"</span><span class="jp">:</span> <span class="js">"implementation"</span><span class="jp">,</span></div><div class="ln2" id="j-files">  <span class="jk">"relevant_files"</span><span class="jp">:</span> <span class="js">["src/api/users.py", …]</span><span class="jp">,</span></div><div class="ln2" id="j-plan">  <span class="jk">"implementation_plan"</span><span class="jp">:</span> <span class="js">[3 steps]</span><span class="jp">,</span></div><div class="ln2" id="j-risks">  <span class="jk">"risks"</span><span class="jp">:</span> <span class="js">["off-by-one on last page"]</span><span class="jp">,</span></div><div class="ln2" id="j-verify">  <span class="jk">"verification_steps"</span><span class="jp">:</span> <span class="js">["pytest tests/…"]</span><span class="jp">,</span></div><div class="ln2">  <span class="jk">"suggested_execution_tier"</span><span class="jp">:</span> <span class="js">"terra"</span></div><div class="ln2"><span class="jp">}</span></div></div>
+    </div>
+    <div class="abs arrow-txt" id="pl-ar1" style="left:618px;top:585px">→</div>
+    <div class="abs arrow-txt" id="pl-ar2" style="left:1108px;top:585px">→</div>
+  </section>
+
+  <!-- 4. fallback -->
+  <section class="scene" id="s-fallback">
+    <div class="abs head" id="fb-head"><span class="step-pill" style="background:var(--amber)">PLANNER FALLBACK</span><div class="h2">If a planner is down, keep going</div></div>
+    <div class="abs card mono" id="fb-mode">--planner auto</div>
+    <div class="abs card node" id="fb-q"><div class="label">1st choice</div><div class="nm" style="color:var(--qwen)">Qwen · local</div><div class="ds">llama-server on your machine</div><div class="status st-on" id="fb-qs">ONLINE</div><div class="xmark" id="fb-x">×</div></div>
+    <div class="abs card node" id="fb-l"><div class="label">2nd choice</div><div class="nm" style="color:var(--luna)">Luna · Codex</div><div class="ds">GPT-5.6 Luna/Low, read-only</div><div class="status st-wait" id="fb-ls">STANDBY</div></div>
+    <div class="abs card node" id="fb-n"><div class="label">Always available</div><div class="nm" style="color:#e2e8f0">Deterministic</div><div class="ds">no model call, no repo reads</div><div class="status st-wait" id="fb-ns">STANDBY</div></div>
+    <svg class="abs" style="left:0;top:0" width="1920" height="1080">
+      <path id="fb-a1" class="ln" stroke="#fbbf24" stroke-dasharray="12 12" d="M556 515 H732"/>
+      <path id="fb-a2" class="ln" stroke="#fbbf24" stroke-dasharray="12 12" d="M1186 515 H1362"/>
+      <path id="fb-h1" d="M742 515 l-18 -11 v22z" fill="#fbbf24"/>
+      <path id="fb-h2" d="M1372 515 l-18 -11 v22z" fill="#fbbf24"/>
+    </svg>
+    <div class="abs card" id="fb-banner"><b>✓</b> A planner failure never aborts the coding task</div>
+  </section>
+
+  <!-- 5. route -->
+  <section class="scene" id="s-route">
+    <div class="abs head" id="rt-head"><span class="step-pill" style="background:var(--luna)">STEP 2 OF 3</span><div class="h2">Route to the cheapest capable model</div></div>
+    <div class="abs" id="rt-note">Routes shown are real <span class="mono" style="color:#cbd5e1">smart-codex --explain</span> results</div>
+    <div class="abs card tier" id="rt-luna"><div class="bar" style="background:var(--luna)"></div><div class="in"><div class="nm" style="color:var(--luna)">Luna</div><div class="id mono">gpt-5.6-luna</div><div class="cls"><span>cheap</span><span class="cost" style="color:var(--luna)">$</span></div><div class="efforts"><span class="eff" id="e-luna-low">low</span><span class="eff">medium</span><span class="eff">high</span></div></div></div>
+    <div class="abs card tier" id="rt-terra"><div class="bar" style="background:var(--terra)"></div><div class="in"><div class="nm" style="color:var(--terra)">Terra</div><div class="id mono">gpt-5.6-terra</div><div class="cls"><span>balanced</span><span class="cost" style="color:var(--terra)">$$</span></div><div class="efforts"><span class="eff">low</span><span class="eff" id="e-terra-medium">medium</span><span class="eff">high</span></div></div></div>
+    <div class="abs card tier" id="rt-sol"><div class="bar" style="background:var(--sol)"></div><div class="in"><div class="nm" style="color:var(--sol)">Sol</div><div class="id mono">gpt-5.6-sol</div><div class="cls"><span>strong</span><span class="cost" style="color:var(--sol)">$$$</span></div><div class="efforts"><span class="eff">medium</span><span class="eff" id="e-sol-high">high</span><span class="eff">xhigh</span></div></div></div>
+    <div class="abs card tier" id="rt-astra"><div class="bar" style="background:var(--astra)"></div><div class="in"><div class="nm" style="color:var(--astra)">Astra</div><div class="id mono">gpt-6-astra</div><div class="cls"><span>frontier</span><span class="cost" style="color:var(--astra)">$$$$</span></div><div class="efforts"><span class="eff">low</span><span class="eff">medium</span><span class="eff">high</span><span class="eff" id="e-astra-xhigh">xhigh<span class="lock" id="lk1">🔒</span></span><span class="eff" id="e-astra-max">max<span class="lock" id="lk2">🔒</span></span></div></div></div>
+    <div class="abs task-pill" id="tp-1" style="left:110px">Fix a typo in README.md<span class="r" style="color:var(--luna)">→ luna / low</span></div>
+    <div class="abs task-pill" id="tp-2" style="left:545px">Implement pagination for the user list<span class="r" style="color:var(--terra)">→ terra / medium</span></div>
+    <div class="abs task-pill" id="tp-3" style="left:980px">Debug a complex race condition across multiple modules<span class="r" style="color:var(--sol)">→ sol / high</span></div>
+    <div class="abs" id="rt-policy"><span class="chip" id="rp-1">Planner suggestion · <i style="color:var(--amber);font-style:normal">advisory</i></span><span style="color:var(--dim);font-size:30px" id="rp-2">→</span><span class="chip" id="rp-3" style="color:#0b1220;background:var(--sky);border-color:var(--sky)">RoutingPolicy · final decision</span><span class="chip" id="rp-4" style="margin-left:auto;border-color:rgba(244,114,182,.5);color:#fbcfe8">🔒 Astra XHigh/Max: escalation-only, --allow-max, --high-value</span></div>
+  </section>
+
+  <!-- 6. execute -->
+  <section class="scene" id="s-execute">
+    <div class="abs head" id="ex-head"><span class="step-pill" style="background:var(--terra)">STEP 3 OF 3</span><div class="h2">Execute, validate, escalate</div></div>
+    <div class="abs card" id="ex-term">
+      <div class="tbar"><i style="background:#f87171"></i><i style="background:#fbbf24"></i><i style="background:#4ade80"></i><span class="mono">smart-codex · real CLI output</span></div>
+      <div class="tbody mono"><div><span class="pr">$ </span><span class="cmd" id="ex-cmd" data-full='smart-codex --planner none --dry-run \&#10;    --mock-fail luna "Fix a typo in README.md"'></span><span class="caret" id="ex-caret"></span></div><div class="o tl" id="tl1">Planner: none (deterministic routing features only)</div><div class="o tl" id="tl2">Executor: deterministic mock (no files will be changed)</div><div class="a tl" id="tl3">Attempt 1: gpt-5.6-luna/low</div><div class="e tl" id="tl4">Escalation: capability: luna/low -&gt; terra/medium</div><div class="a tl" id="tl5">Attempt 2: gpt-5.6-terra/medium</div><div class="s tl" id="tl6">Result: success (executor mocked; coding task was not executed)</div></div>
+    </div>
+    <div class="abs card ex-card" id="ex-1"><div class="label">1 · Sandboxed edit</div><div class="t">Git working tree</div><div class="d">workspace-write sandbox · isolated config</div></div>
+    <div class="abs card ex-card" id="ex-2"><div class="label">2 · Objective validation</div><div class="t">Checks decide success</div><div class="d">external checks, not the model's opinion</div><div class="ex-mark" id="ex-2m" style="color:var(--bad)">✗</div></div>
+    <div class="abs card ex-card" id="ex-3"><div class="label">3 · Failure-aware escalation</div><div class="t">Stronger route on failure</div><div class="d">up to 3 attempts by default</div><div class="ex-mark" id="ex-3m" style="color:var(--ok)">✓</div></div>
+  </section>
+
+  <!-- 7. telemetry -->
+  <section class="scene" id="s-telemetry">
+    <div class="abs head" id="tm-head"><span class="step-pill" style="background:var(--sol)">OBSERVE</span><div class="h2">Telemetry and a live dashboard</div></div>
+    <div class="abs" id="tm-list">
+      <div class="card tm-row"><span class="ic" style="background:var(--luna)">#</span>Tokens · cached &amp; uncached</div>
+      <div class="card tm-row"><span class="ic" style="background:var(--terra)">⏱</span>Latency per attempt</div>
+      <div class="card tm-row"><span class="ic" style="background:var(--sol)">⇅</span>Model, effort &amp; escalations</div>
+      <div class="card tm-row"><span class="ic" style="background:var(--astra)">!</span>Stop reasons &amp; fallbacks</div>
+      <div class="card tm-row" id="tm-lock"><span class="ic" style="background:var(--ok)">🔒</span>Prompts not logged by default</div>
+    </div>
+    <div class="abs card" id="tm-browser">
+      <div class="bbar"><i style="background:#f87171"></i><i style="background:#fbbf24"></i><i style="background:#4ade80"></i><div class="url mono">127.0.0.1:8766 · smart-codex-dashboard</div><span class="mock">MOCK RUN</span></div>
+      <div id="tm-view"><img id="tm-img" src="dashboard.png" alt=""></div>
+    </div>
+  </section>
+
+  <!-- 8. evidence -->
+  <section class="scene" id="s-evidence">
+    <div class="abs head" id="ev-head"><span class="step-pill" style="background:var(--astra)">EVIDENCE</span><div class="h2">Measured, not assumed</div></div>
+    <div class="abs card stat" id="ev-1"><div class="n grad" id="ev-n1" data-suffix="%">0%</div><div class="l">exact-route accuracy</div><div class="d">40-task calibration set</div></div>
+    <div class="abs card stat" id="ev-2"><div class="n" id="ev-n2" style="color:var(--ok)" data-suffix="">0</div><div class="l">under-routes</div><div class="d">only 2 conservative over-routes</div></div>
+    <div class="abs card stat" id="ev-3"><div class="n" id="ev-n3" style="color:var(--sol)" data-suffix="">0</div><div class="l">SWE-bench Verified tasks</div><div class="d">reviewed and staged for real runs</div></div>
+    <div class="abs card" id="ev-gate"><div class="pill mono">claims_ready: false</div><div class="txt">No usage-savings claim yet. <span>Savings are reported only after ≥ 100 objectively validated real tasks run across every baseline.</span></div></div>
+  </section>
+
+  <!-- 9. outro -->
+  <section class="scene" id="s-outro">
+    <svg class="abs" id="ou-logo" width="260" height="160" viewBox="0 0 260 160"><use href="#logo-sym"/></svg>
+    <div class="abs display" id="ou-title"><span class="grad">Adaptive Codex Router</span></div>
+    <div class="abs" id="ou-tag"><span id="ou-t1">Plan locally.</span><span id="ou-t2">Route smartly.</span><span id="ou-t3" class="grad">Pay only for the reasoning you need.</span></div>
+    <div class="abs card mono" id="ou-cmd"><span class="p">$ </span>smart-codex --explain "Fix a typo in README.md"</div>
+    <div class="abs mono" id="ou-url">github.com/Ivan53040/Adaptive-Codex-Router</div>
+  </section>
+
+  <div id="vignette"></div>
+  <div id="subs"><span></span></div>
+  <div id="poster"><div class="shade"></div><div class="play"><div class="tri"><i></i></div><div><div class="pt">Watch the intro</div><div class="ps" id="poster-sub">English voice-over · subtitles</div></div></div></div>
+  <div id="fade"></div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const EASE = {
+  out: p => 1 - Math.pow(1 - p, 3),
+  inout: p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2,
+  lin: p => p,
+  back: p => { const c1 = 1.6, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); },
+};
+const tweens = [], hooks = [];
+function els(target) { return typeof target === 'string' ? $$(target) : Array.isArray(target) ? target : [target]; }
+function tw(target, start, dur, props, ease = 'out') { els(target).forEach(el => tweens.push({ el, start, dur, props, ease })); }
+function stagger(target, start, gap, dur, props, ease) { els(target).forEach((el, i) => tw(el, start + i * gap, dur, props, ease)); }
+function enter(target, start, opts = {}) {
+  const { dur = .6, y = 26, x = 0, scale = 1, blur = 0, ease = 'out' } = opts;
+  const p = { opacity: [0, 1] };
+  if (y) p.y = [y, 0]; if (x) p.x = [x, 0]; if (scale !== 1) p.scale = [scale, 1]; if (blur) p.blur = [blur, 0];
+  tw(target, start, dur, p, ease);
+}
+function cls(target, t0, t1, name) { els(target).forEach(el => hooks.push(t => el.classList.toggle(name, t >= t0 && t < t1))); }
+function swap(el, t0, text, klass) {
+  const e = typeof el === 'string' ? $(el) : el; const orig = [e.textContent, e.className];
+  hooks.push(t => { const on = t >= t0; e.textContent = on ? text : orig[0]; e.className = on && klass ? klass : orig[1]; });
+}
+
+function apply(t) {
+  const state = new Map();
+  for (const w of tweens) {
+    let st = state.get(w.el); if (!st) { st = {}; state.set(w.el, st); }
+    for (const k in w.props) {
+      const [a, b] = w.props[k];
+      if (t < w.start) { if (!(k in st)) st[k] = a; }
+      else { const p = w.dur <= 0 ? 1 : Math.min(1, (t - w.start) / w.dur); st[k] = a + (b - a) * EASE[w.ease](p); }
+    }
+  }
+  for (const [el, st] of state) {
+    if ('opacity' in st) el.style.opacity = st.opacity;
+    if ('x' in st || 'y' in st || 'scale' in st || 'rotate' in st)
+      el.style.transform = `translate(${st.x || 0}px,${st.y || 0}px) scale(${st.scale ?? 1}) rotate(${st.rotate || 0}deg)`;
+    if ('blur' in st) el.style.filter = st.blur > .05 ? `blur(${st.blur}px)` : '';
+    if ('draw' in st) { const L = el.getTotalLength(); el.style.strokeDasharray = `${L} ${L}`; el.style.strokeDashoffset = L * (1 - st.draw); }
+    if ('width' in st) el.style.width = st.width + '%';
+    if ('top' in st) el.style.top = st.top + 'px';
+    if ('chars' in st) el.textContent = (el.dataset.full || '').slice(0, Math.round(st.chars));
+    if ('count' in st) el.textContent = Math.round(st.count) + (el.dataset.suffix || '');
+  }
+}
+
+let TL, SUBS, ready = false;
+const scene = id => TL.scenes.find(s => s.id === id);
+const cue = (id, i) => scene(id).cues[i];
+const sub = prefix => { const s = SUBS.find(s => s.text.startsWith(prefix)); if (!s) throw new Error('no subtitle ' + prefix); return s; };
+const word = (prefix, w) => { const s = sub(prefix); const i = s.text.indexOf(w); if (i < 0) throw new Error('no word ' + w); return s.start + (i / s.text.length) * (s.end - s.start - .3); };
+
+function build() {
+  // Scene containers.
+  TL.scenes.forEach((s, i) => {
+    const el = $('#s-' + s.id), last = i === TL.scenes.length - 1;
+    tw(el, s.start, .55, { opacity: [0, 1] });
+    if (!last) tw(el, s.end - .45, .45, { opacity: [1, 0] }, 'inout');
+    hooks.push(t => { el.style.display = (t >= s.start - .05 && t <= s.end + .05) ? 'block' : 'none'; });
+  });
+
+  // Background drift.
+  hooks.push(t => {
+    $('#grid').style.transform = `translate(${(t * 6) % 80}px,${(t * 4) % 80}px)`;
+    $('#orb1').style.transform = `translate(${Math.sin(t * .21) * 60}px,${Math.cos(t * .17) * 40}px)`;
+    $('#orb2').style.transform = `translate(${Math.cos(t * .19) * 70}px,${Math.sin(t * .23) * 50}px)`;
+    $('#orb3').style.transform = `translate(${Math.sin(t * .13) * 120}px,${Math.cos(t * .11) * 80}px)`;
+  });
+
+  // Top bar with chapters (plan .. evidence).
+  const p0 = scene('plan').start, e1 = scene('evidence').end;
+  tw('#topbar', p0 + .2, .6, { opacity: [0, 1], y: [-20, 0] });
+  tw('#topbar', e1 - .5, .5, { opacity: [1, 0] });
+  const order = ['plan', 'route', 'execute', 'telemetry', 'evidence'];
+  $$('.chap').forEach(c => {
+    const s = scene(c.dataset.s), idx = order.indexOf(c.dataset.s);
+    hooks.push(t => {
+      const cur = order.findIndex(id => t >= scene(id).start && t < scene(id).end);
+      c.classList.toggle('on', cur === idx);
+      c.classList.toggle('done', cur > idx);
+    });
+  });
+
+  // 1. hook
+  // The title is visible from the first frame so the video has a useful thumbnail.
+  const pw = word('Not every coding task', 'most powerful');
+  $$('#hk-title .grad').forEach((w, i) => {
+    tw(w, pw + i * .18, .3, { scale: [1, 1.12], y: [0, -6] });
+    tw(w, pw + i * .18 + .3, .45, { scale: [1.12, 1], y: [-6, 0] }, 'inout');
+  });
+  const s2 = sub('A typo fix');
+  enter('#hk-typo', s2.start - .1, { x: -60, y: 0 });
+  enter('#hk-race', word('A typo fix', 'cross-module') - .2, { x: -60, y: 0 });
+  const s3 = sub('yet most workflows');
+  enter('#hk-model', s3.start - .3, { scale: .9, y: 0, dur: .7, ease: 'back' });
+  tw('#hk-a1', s3.start + .2, .8, { draw: [0, 1], opacity: [1, 1] }, 'inout');
+  tw('#hk-a2', s3.start + .55, .8, { draw: [0, 1], opacity: [1, 1] }, 'inout');
+  tw('#hk-h1', s3.start + .9, .2, { opacity: [0, 1] });
+  tw('#hk-h2', s3.start + 1.25, .2, { opacity: [0, 1] });
+  tw('#hk-fill', s3.start + .9, 2.2, { width: [0, 96] }, 'inout');
+  tw('#hk-stamp', s3.start + 2.1, .45, { opacity: [0, 1], scale: [1.8, 1], rotate: [-14, -7] }, 'back');
+
+  // 2. intro
+  const i0 = scene('intro').start;
+  $$('#in-logo .lg').forEach((p, i) => tw(p, i0 + .35 + i * .12, .9, { draw: [0, 1] }, 'inout'));
+  enter('#lg-src', i0 + .2, { scale: .3, y: 0, dur: .5, ease: 'back' });
+  $$('#in-logo .lgd').forEach((d, i) => enter(d, i0 + 1.0 + i * .12, { scale: .2, y: 0, dur: .45, ease: 'back' }));
+  enter('#in-title', sub('Meet Adaptive').start - .15, { y: 40, blur: 14, dur: .8 });
+  enter('#in-sub', sub('a local, usage-aware').start, { y: 20 });
+  const ic = cue('intro', 1);
+  stagger('#in-flow > *', ic.start, .2, .5, { opacity: [0, 1], y: [24, 0] });
+  enter('#in-cap', sub('model and reasoning effort').start, { y: 16 });
+
+  // 3. plan
+  const pl = scene('plan');
+  enter('#pl-head', pl.start + .1, { x: -30, y: 0 });
+  enter('#pl-prompt', pl.start + .6, { y: 16 });
+  const q = sub('A local Qwen');
+  enter('#pl-a', q.start - .1, { y: 30 });
+  enter('#pl-ar1', word('A local Qwen', 'analyzes') - .2, { x: -20, y: 0 });
+  enter('#pl-b', word('A local Qwen', 'analyzes'), { y: 30 });
+  tw('#pl-scan', word('A local Qwen', 'analyzes') + .4, 3.2, { top: [0, 8 * 37.3], opacity: [1, 1] }, 'inout');
+  tw('#pl-scan', word('A local Qwen', 'analyzes') + 3.6, .4, { opacity: [1, 0] });
+  enter('#pl-zero', word('so planning spends', 'none') - .2, { scale: .85, y: 0, ease: 'back' });
+  const r = sub('It returns a structured');
+  enter('#pl-ar2', r.start - .3, { x: -20, y: 0 });
+  enter('#pl-c', r.start - .1, { y: 30 });
+  stagger('#pl-c .ln2', r.start + .2, .12, .35, { opacity: [0, 1], x: [-10, 0] });
+  const end = pl.end;
+  cls('#j-type', word('It returns a structured', 'task type'), end, 'hl');
+  cls('#j-files', word('It returns a structured', 'relevant'), end, 'hl');
+  cls('#j-plan', word('implementation steps', 'implementation'), end, 'hl');
+  cls('#j-risks', word('implementation steps', 'risks'), end, 'hl');
+  cls('#j-verify', word('implementation steps', 'verification'), end, 'hl');
+
+  // 4. fallback
+  const fb = scene('fallback');
+  enter('#fb-head', fb.start + .1, { x: -30, y: 0 });
+  enter('#fb-mode', fb.start + .4, { y: 16 });
+  stagger(['#fb-q', '#fb-l', '#fb-n'].map(s => $(s)), fb.start + .5, .25, .55, { opacity: [0, 1], y: [30, 0] });
+  const off = word('If the local model is offline', 'offline');
+  swap('#fb-qs', off, 'OFFLINE', 'status st-off');
+  tw('#fb-q', off, .5, { opacity: [1, .55] });
+  tw('#fb-x', off, .4, { opacity: [0, 1], scale: [1.6, 1] }, 'back');
+  const fbk = word('If the local model is offline', 'falls back');
+  tw('#fb-a1', fbk, .1, { opacity: [0, 1] }); tw('#fb-h1', fbk, .1, { opacity: [0, 1] });
+  swap('#fb-ls', word('If the local model is offline', 'Luna'), 'NEXT', 'status st-next');
+  const det = sub('then to a deterministic').start;
+  tw('#fb-a2', det, .1, { opacity: [0, 1] }); tw('#fb-h2', det, .1, { opacity: [0, 1] });
+  swap('#fb-ns', det + .5, 'READY', 'status st-on');
+  hooks.push(t => { $('#fb-a1').style.strokeDashoffset = -t * 40; $('#fb-a2').style.strokeDashoffset = -t * 40; });
+  enter('#fb-banner', cue('fallback', 1).start - .1, { y: 30, scale: .96 });
+
+  // 5. route
+  const rt = scene('route');
+  enter('#rt-head', rt.start + .1, { x: -30, y: 0 });
+  const tiers = [['#rt-luna', 'Luna'], ['#rt-terra', 'Terra'], ['#rt-sol', 'Sol'], ['#rt-astra', 'Astra']];
+  tiers.forEach(([id, name], i) => enter(id, word('across four tiers', name) - .25, { y: 40, dur: .55 }));
+  const tasks = [['#tp-1', '#rt-luna', '#e-luna-low', 'var(--luna)', 2], ['#tp-2', '#rt-terra', '#e-terra-medium', 'var(--terra)', 3], ['#tp-3', '#rt-sol', '#e-sol-high', 'var(--sol)', 4]];
+  enter('#rt-note', cue('route', 2).start, { y: 10 });
+  tasks.forEach(([pill, col, eff, color, ci]) => {
+    const c = cue('route', ci);
+    const pel = $(pill), left = parseFloat(pel.style.left);
+    const dx = 760 - left, dy = -400;
+    tw(pel, c.start - .1, .45, { opacity: [0, 1], x: [dx, dx], y: [dy + 20, dy], scale: [1.1, 1.1] });
+    tw(pel, c.start + .55, .75, { x: [dx, 0], y: [dy, 0], scale: [1.1, 1] }, 'inout');
+    hooks.push(t => { const e = $(eff); const on = t >= c.start + 1.2; e.classList.toggle('lit', on); e.style.background = on ? color : ''; e.style.borderColor = on ? color : ''; });
+    hooks.push(t => { const on = t >= c.start + 1.2 && t < rt.end; $(col).style.borderColor = on ? color : ''; $(col).style.boxShadow = on ? `0 0 0 1px ${color}, 0 24px 60px rgba(0,0,0,.35)` : ''; });
+  });
+  const pol = sub('Planners can only suggest');
+  enter('#rp-1', pol.start, { y: 16 });
+  enter('#rp-2', word('Planners can only suggest', 'The policy'), { x: -10, y: 0 });
+  enter('#rp-3', word('Planners can only suggest', 'decides') - .1, { scale: .9, y: 0, ease: 'back' });
+  const g = sub("and Astra's");
+  tw(['#lk1', '#lk2'].map(s => $(s)), g.start + .3, .4, { opacity: [0, 1], scale: [2, 1] }, 'back');
+  hooks.push(t => { const on = t >= g.start + .3; ['#e-astra-xhigh', '#e-astra-max'].forEach(s => { const e = $(s); e.style.borderColor = on ? 'var(--astra)' : ''; e.style.color = on ? '#fbcfe8' : ''; }); });
+  enter('#rp-4', word("and Astra's", 'explicit') - .2, { x: 30, y: 0 });
+
+  // 6. execute
+  const ex = scene('execute');
+  enter('#ex-head', ex.start + .1, { x: -30, y: 0 });
+  enter('#ex-term', ex.start + .4, { y: 30 });
+  const cmd = $('#ex-cmd');
+  tw(cmd, ex.start + .8, 1.9, { chars: [0, cmd.dataset.full.length] }, 'lin');
+  const ed = sub('The chosen model edits');
+  hooks.push(t => { const typing = t >= ex.start + .8 && t < ex.start + 2.7; const blink = t >= ex.start + 2.7 && t < ed.start && Math.floor(t * 2.5) % 2 === 0; $('#ex-caret').style.opacity = typing || blink ? 1 : 0; });
+  const ob = sub('and objective checks');
+  const fl = sub('If it fails');
+  const lines = [['#tl1', ed.start], ['#tl2', ed.start + .35], ['#tl3', ob.start + .2], ['#tl4', fl.start + .6], ['#tl5', fl.start + 1.6], ['#tl6', fl.start + 3.0]];
+  lines.forEach(([id, at]) => enter(id, at, { y: 8, dur: .3 }));
+  [['#ex-1', ed.start], ['#ex-2', ob.start], ['#ex-3', fl.start]].forEach(([id, on], i) => {
+    tw(id, ex.start + .6 + i * .15, .5, { opacity: [0, .4], x: [30, 0] });
+    tw(id, on, .4, { opacity: [.4, 1] });
+    cls(id, on, ex.end, 'on');
+  });
+  tw('#ex-2m', ob.start + 1.2, .4, { opacity: [0, 1], scale: [1.8, 1] }, 'back');
+  tw('#ex-3m', fl.start + 3.1, .4, { opacity: [0, 1], scale: [1.8, 1] }, 'back');
+
+  // 7. telemetry
+  const tm = scene('telemetry');
+  enter('#tm-head', tm.start + .1, { x: -30, y: 0 });
+  stagger($$('#tm-list .tm-row').slice(0, 4), tm.start + .5, .35, .5, { opacity: [0, 1], x: [-30, 0] });
+  enter('#tm-lock', sub('and prompts stay out').start, { x: -30, y: 0, scale: .96 });
+  enter('#tm-browser', tm.start + .9, { y: 40, scale: .97, dur: .8 });
+  const d = cue('telemetry', 1);
+  tw('#tm-img', d.start, d.end - d.start + .6, { y: [0, -330], scale: [1, 1.04] }, 'inout');
+
+  // 8. evidence
+  const ev = scene('evidence');
+  enter('#ev-head', ev.start + .1, { x: -30, y: 0 });
+  const st = sub('On forty calibration');
+  enter('#ev-1', st.start - .1, { y: 30 }); tw('#ev-n1', st.start + .1, 1.6, { count: [0, 95] });
+  const z = word('with zero', 'zero');
+  enter('#ev-2', z - .3, { y: 30 }); tw('#ev-n2', z - .3, .1, { count: [0, 0] });
+  const sw = sub('A SWE-bench');
+  enter('#ev-3', sw.start - .1, { y: 30 }); tw('#ev-n3', sw.start + .1, 1.6, { count: [0, 100] });
+  enter('#ev-gate', sub('until at least').start - .2, { y: 30 });
+
+  // 9. outro
+  const ou = scene('outro');
+  enter('#ou-logo', ou.start + .1, { scale: .6, y: 0, dur: .7, ease: 'back' });
+  enter('#ou-title', cue('outro', 0).start - .1, { y: 30, blur: 12, dur: .8 });
+  enter('#ou-t1', sub('Plan locally').start, { y: 16 });
+  enter('#ou-t2', word('Plan locally', 'route'), { y: 16 });
+  enter('#ou-t3', sub('and pay only').start, { y: 16 });
+  enter('#ou-cmd', sub('and pay only').end - .2, { y: 20 });
+  enter('#ou-url', sub('and pay only').end + .2, { y: 14 });
+  tw('#fade', TL.duration - 1.1, 1.1, { opacity: [0, 1] }, 'inout');
+
+  tweens.sort((a, b) => a.start - b.start);
+}
+
+function renderSubs(t) {
+  const span = $('#subs span');
+  const s = SUBS.find(s => t >= s.start && t < s.end);
+  if (!s || window.__poster) { span.style.opacity = 0; span.textContent = ''; return; }
+  span.textContent = s.text;
+  span.style.opacity = Math.min(1, (t - s.start) / .12, (s.end - t) / .12);
+}
+
+window.setup = async (timeline) => {
+  TL = timeline; SUBS = timeline.subtitles;
+  build();
+  await document.fonts.ready;
+  const img = $('#tm-img'); if (!img.complete) await new Promise(r => { img.onload = r; img.onerror = r; });
+  ready = true;
+};
+window.render = (t) => {
+  for (const h of hooks) h(t);
+  apply(t);
+  renderSubs(t);
+};
+window.poster = (on, label) => { window.__poster = on; $('#poster').style.display = on ? 'block' : 'none'; if (label) $('#poster-sub').textContent = label; };
+</script>
+</body>
+</html>

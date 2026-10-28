@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="160" viewBox="0 0 260 160" role="img" aria-labelledby="t">
+  <title id="t">Adaptive Codex Router logo: one task branching to four model tiers</title>
+  <g fill="none" stroke-width="10" stroke-linecap="round">
+    <path d="M40 80 C110 80 120 22 220 22" stroke="#38bdf8"/>
+    <path d="M40 80 C110 80 130 61 220 61" stroke="#818cf8"/>
+    <path d="M40 80 C110 80 130 99 220 99" stroke="#fbbf24"/>
+    <path d="M40 80 C110 80 120 138 220 138" stroke="#f472b6"/>
+  </g>
+  <circle cx="40" cy="80" r="26" fill="#64748b"/>
+  <circle cx="40" cy="80" r="17" fill="#e2e8f0"/>
+  <circle cx="220" cy="22" r="14" fill="#38bdf8"/>
+  <circle cx="220" cy="61" r="14" fill="#818cf8"/>
+  <circle cx="220" cy="99" r="14" fill="#fbbf24"/>
+  <circle cx="220" cy="138" r="14" fill="#f472b6"/>
+</svg>
