@@ -19,3 +19,6 @@ data/test-temp/
 data/swebench_verified_candidates*.jsonl
 data/swebench_verified_candidates*.json
 benchmarks/fixtures/phase4_repo/.git/
+
+# Intro video build output
+docs/video/build/

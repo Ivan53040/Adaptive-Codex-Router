@@ -1,0 +1,140 @@
+WEBVTT
+
+00:00:00.900 --> 00:00:04.424
+Not every coding task needs
+the most powerful model.
+
+00:00:04.484 --> 00:00:09.379
+A typo fix and a cross-module race
+condition are very different jobs,
+
+00:00:09.439 --> 00:00:13.019
+yet most workflows send both
+to the same expensive tier.
+
+00:00:13.469 --> 00:00:15.372
+Meet Adaptive Codex Router:
+
+00:00:15.432 --> 00:00:19.083
+a local, usage-aware wrapper for the Codex CLI.
+
+00:00:19.143 --> 00:00:23.094
+It plans every task first,
+then routes it to the cheapest
+
+00:00:23.154 --> 00:00:25.929
+model and reasoning effort
+that is likely to succeed.
+
+00:00:26.379 --> 00:00:27.876
+Step one: plan.
+
+00:00:27.936 --> 00:00:31.416
+A local Qwen3.8-27B model
+analyzes your repository,
+
+00:00:31.476 --> 00:00:36.388
+so planning spends none of your Codex allowance.
+
+00:00:36.448 --> 00:00:40.256
+It returns a structured plan:
+task type, relevant files,
+
+00:00:40.316 --> 00:00:43.447
+implementation steps, risks, and verification.
+
+00:00:43.897 --> 00:00:48.049
+If the local model is offline,
+auto mode falls back to Luna,
+
+00:00:48.109 --> 00:00:50.621
+then to a deterministic classifier.
+
+00:00:50.681 --> 00:00:53.605
+A planner failure never blocks your coding task.
+
+00:00:54.055 --> 00:00:55.467
+Step two: route.
+
+00:00:55.527 --> 00:00:59.995
+A deterministic policy picks
+the model and reasoning effort
+
+00:01:00.055 --> 00:01:02.933
+across four tiers: Luna, Terra, Sol, and Astra.
+
+00:01:02.993 --> 00:01:05.131
+A typo goes to Luna on low.
+
+00:01:05.191 --> 00:01:07.413
+A new feature gets Terra on medium.
+
+00:01:07.473 --> 00:01:10.357
+A tricky race condition goes to Sol on high.
+
+00:01:10.417 --> 00:01:13.923
+Planners can only suggest a
+tier. The policy decides,
+
+00:01:13.983 --> 00:01:18.675
+and Astra's most expensive settings
+stay behind explicit guardrails.
+
+00:01:19.125 --> 00:01:21.518
+Step three: execute and verify.
+
+00:01:21.578 --> 00:01:25.325
+The chosen model edits your
+Git working tree in a sandbox,
+
+00:01:25.385 --> 00:01:28.771
+and objective checks decide
+whether it really succeeded.
+
+00:01:28.831 --> 00:01:33.133
+If it fails, the router looks at why
+and escalates to a stronger route,
+
+00:01:33.193 --> 00:01:35.446
+with up to three attempts by default.
+
+00:01:35.896 --> 00:01:39.078
+Every run is logged as
+privacy-conscious telemetry,
+
+00:01:39.138 --> 00:01:42.300
+and prompts stay out of the
+logs unless you opt in.
+
+00:01:42.360 --> 00:01:45.359
+A local dashboard shows tokens, latency, models,
+
+00:01:45.419 --> 00:01:47.567
+and attempts as they happen.
+
+00:01:48.017 --> 00:01:50.538
+And the project stays honest about evidence.
+
+00:01:50.598 --> 00:01:54.922
+On forty calibration tasks,
+routing was 95% exact,
+
+00:01:54.982 --> 00:01:56.661
+with zero under-routes.
+
+00:01:56.721 --> 00:02:00.993
+A SWE-bench Verified harness is
+ready, but no savings are claimed
+
+00:02:01.053 --> 00:02:04.253
+until at least one hundred
+real tasks are measured.
+
+00:02:04.703 --> 00:02:06.499
+Adaptive Codex Router.
+
+00:02:06.559 --> 00:02:08.384
+Plan locally, route smartly,
+
+00:02:08.444 --> 00:02:10.976
+and pay only for the reasoning you need.
