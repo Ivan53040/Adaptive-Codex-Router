@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/a71b32ff-165e-4f11-8215-4b00d405eeba
+
 # Adaptive Codex Router
 
 A local, usage-aware wrapper that plans a coding task with a selectable provider
